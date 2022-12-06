@@ -49,7 +49,7 @@ export default function Campaign() {
                 onChange={handleChange}
                 />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="success" type="submit">
             Launch Campaign
         </Button>
         </Form>
