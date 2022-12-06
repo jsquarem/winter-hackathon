@@ -1,27 +1,37 @@
 import React, { useState } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
 import HomePage from '../HomePage/HomePage';
 import LoginPage from '../LoginPage/LoginPage';
+import SignupPage from '../SignupPage/SignupPage';
 import userService from '../../utils/userService';
 
 function App() {
-  // const [user, setUser] = useState(userService.getUser()); // getUser decodes our JWT token, into a javascript object
-  // // this object corresponds to the jwt payload which is defined in the server signup or login function that looks like
-  // // this  const token = createJWT(user); // where user was the document we created from mongo
-
-  // function handleSignUpOrLogin() {
-  //   setUser(userService.getUser()); // getting the user from localstorage decoding the jwt
-  // }
-
-  // function handleLogout() {
-  //   userService.logout();
-  //   setUser(null);
-  // }
+  const [user, setUser] = useState(userService.getUser());
+  console.log(user, '<-user in app');
+  
+  const handleSignUpOrLogin = () => {
+    setUser(userService.getUser());
+  };
+  const handleLogout = () => {
+    userService.logout();
+    setUser(null);
+  };
 
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route
+        path="/login"
+        element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />}
+      />
+      <Route
+        path="/signup"
+        element={<SignupPage handleSignUpOrLogin={handleSignUpOrLogin} />}
+      />
+      {/* <Route path="/*" element={<PageNotFound />} /> */}
     </Routes>
   );
 }

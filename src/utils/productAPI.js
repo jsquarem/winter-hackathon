@@ -1,7 +1,7 @@
-const BASE_URL = `http://localhost:3001/api/`;
+const BASE_URL = `/api/products/`;
 
 export function getProductbyURL(productURL) {
-  const queryURL = `${BASE_URL}products/find/${productURL}/`;
+  const queryURL = `${BASE_URL}find/${productURL}/`;
   return fetch(queryURL, {
     method: 'GET'
   }).then((res) => {
