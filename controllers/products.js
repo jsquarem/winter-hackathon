@@ -6,10 +6,11 @@ const getAmazonProductByURL = async (req, res) => {
   console.log('here');
   try {
     const productURL = req.params.productURL;
-    const product_by_asin = await amazonScraper.asin({ asin: 'B01GW3H3U8' });
+    const product_by_asin = await amazonScraper.asin({ asin: 'B09R7LWF92' });
+    //const productObject = await JSON.stringify(product_by_asin);
     console.log(product_by_asin, '<-product_by_asin');
     // const ingredientsList = await getIngredientsByRecipeID(recipeIDs);
-    res.status(201).send(ingredientsList);
+    res.status(201).json(product_by_asin);
   } catch (err) {
     console.log(err);
     res.status(400).json({ err });
