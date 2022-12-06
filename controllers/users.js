@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
+const SECRET = process.env.SECRET;
 
 module.exports = {
   signup,
@@ -9,11 +10,12 @@ module.exports = {
 async function signup(req, res) {
   console.log(req.body, ' req.body in signup');
   const user = new User({ ...req.body });
+  console.log(user, '<-user');
   try {
     await user.save();
+    console.log('success');
     const token = createJWT(user);
-    res.json({ token }); // shorthand for the below
-    // res.json({ token: token })
+    res.json({ token });
   } catch (err) {
     if (err.name === 'MongoServerError' && err.code === 11000) {
       console.log(err.message, 'err.message');
