@@ -17,7 +17,7 @@ const handle404 = customErrors.handle404
 const requireOwnership = customErrors.requireOwnership
 
 // this is middleware that will remove blank fields from `req.body`, e.g.
-// { product: { title: '', text: 'foo' } } -> { product: { text: 'foo' } }
+// { teacherProfile: { title: '', text: 'foo' } } -> { teacherProfile: { text: 'foo' } }
 const removeBlanks = require('../../lib/remove_blank_fields')
 // passing this as a second argument to `router.<verb>` will make it
 // so that a token MUST be passed for that route to be available
@@ -28,43 +28,43 @@ const requireToken = passport.authenticate('bearer', { session: false })
 const router = express.Router()
 
 // INDEX
-// GET all products
-router.get('/teacherprofiles', (req, res, next) => {
+// GET all teacher-profiles
+router.get('/teacher-profiles', (req, res, next) => {
   TeacherProfile.find()
-    .then(products => {
-      // `products` will be an array of Mongoose documents
+    .then(teacherProfiles => {
+      // `teacherprofiles` will be an array of Mongoose documents
       // we want to convert each one to a POJO, so we use `.map` to
       // apply `.toObject` to each one
-      return products.map(product => product.toObject())
+      return teacherProfiles.map(teacherProfile => teacherProfile.toObject())
     })
-    // respond with status 200 and JSON of the products
-    .then(products => res.status(200).json({ products: products }))
+    // respond with status 200 and JSON of the teacherprofiles
+    .then(teacherProfiles => res.status(200).json({ teacherProfiles: teacherProfiles }))
     // if an error occurs, pass it to the handler
     .catch(next)
 })
 
 // SHOW
-// GET /products/5a7db6c74d55bc51bdf39793
-router.get('/teacherprofiles/:id', requireToken, (req, res, next) => {
+// GET /teacher-profiles/5a7db6c74d55bc51bdf39793
+router.get('/teacher-profiles/:id', requireToken, (req, res, next) => {
   // req.params.id will be set based on the `:id` in the route
   TeacherProfile.findById(req.params.id)
     .then(handle404)
     // if `findById` is successful, respond with 200 and "example" JSON
-    .then(product => res.status(200).json({ product: product.toObject() }))
+    .then(teacherProfile => res.status(200).json({ teacherProfile: teacherProfile.toObject() }))
     // if an error occurs, pass it to the handler
     .catch(next)
 })
 
 // CREATE
-// POST /products
-router.post('/teacherprofiles', requireToken, (req, res, next) => {
+// POST /teacher-profiles
+router.post('/teacher-profiles', (req, res, next) => {
   // set owner of new example to be current user
-  req.body.product.owner = req.user.id
+  req.body.teacherProfile.owner = req.user.id
 
-  TeacherProfile.create(req.body.product)
-    // respond to succesful `create` with status 201 and JSON of new "product"
-    .then(product => {
-      res.status(201).json({ product: product.toObject() })
+  TeacherProfile.create(req.body.teacherProfile)
+    // respond to succesful `create` with status 201 and JSON of new "teacherProfile"
+    .then(teacherProfile => {
+      res.status(201).json({ teacherProfile: teacherProfile.toObject() })
     })
     // if an error occurs, pass it off to our error handler
     // the error handler needs the error message and the `res` object so that it
@@ -73,38 +73,38 @@ router.post('/teacherprofiles', requireToken, (req, res, next) => {
 })
 
 // UPDATE
-// PATCH /products/5a7db6c74d55bc51bdf39793
-router.patch('/teacherprofiles/:id', requireToken, removeBlanks, (req, res, next) => {
+// PATCH /teacher-profiles/5a7db6c74d55bc51bdf39793
+router.patch('/teacher-profiles/:id', requireToken, removeBlanks, (req, res, next) => {
   // if the client attempts to change the `owner` property by including a new
   // owner, prevent that by deleting that key/value pair
-  delete req.body.product.owner
+  delete req.body.teacherProfile.owner
 
   TeacherProfile.findById(req.params.id)
     .then(handle404)
-    .then(product => {
+    .then(teacherProfile => {
       // pass the `req` object and the Mongoose record to `requireOwnership`
       // it will throw an error if the current user isn't the owner
-      requireOwnership(req, product)
+      requireOwnership(req, teacherProfile)
 
       // pass the result of Mongoose's `.update` to the next `.then`
-      return product.updateOne(req.body.product)
+      return teacherProfile.updateOne(req.body.teacherProfile)
     })
     // if that succeeded, return 204 and no JSON
-    .then(product => res.sendStatus(204).json({ product }))
+    .then(teacherProfile => res.sendStatus(204).json({ teacherProfile }))
     // if an error occurs, pass it to the handler
     .catch(next)
 })
 
 // DESTROY
-// DELETE /products/5a7db6c74d55bc51bdf39793
-router.delete('/teacherprofiles/:id', requireToken, (req, res, next) => {
+// DELETE /teacher-profiles/5a7db6c74d55bc51bdf39793
+router.delete('/teacher-profiles/:id', requireToken, (req, res, next) => {
   TeacherProfile.findById(req.params.id)
     .then(handle404)
-    .then(product => {
-      // throw an error if current user doesn't own `product`
-      requireOwnership(req, product)
-      // delete the product ONLY IF the above didn't throw
-      product.deleteOne()
+    .then(teacherProfile => {
+      // throw an error if current user doesn't own `teacherProfile`
+      requireOwnership(req, teacherProfile)
+      // delete the teacherProfile ONLY IF the above didn't throw
+      teacherProfile.deleteOne()
     })
     // send back 204 and no content if the deletion succeeded
     .then(() => res.sendStatus(204))
