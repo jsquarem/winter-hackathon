@@ -48,7 +48,7 @@ export default function SignUpPage({ handleSignUpOrLogin }) {
       console.log(state, '<-state in submit')
       await userService.signup(state);
       handleSignUpOrLogin();
-      navigate('/');
+      navigate('/profile/new');
     } catch (err) {
       console.log(err.message);
       setError({ message: err.message, passwordError: false });

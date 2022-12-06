@@ -43,9 +43,25 @@ function login(creds) {
     .then(({ token }) => tokenService.setToken(token));
 }
 
+function update(updateData) {
+  console.log(updateData, '<-updateData');
+  return fetch(BASE_URL + 'update', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(updateData)
+  }).then((res) => {
+    console.log(res, '<-res');
+    if (res.ok) return res.json();
+    throw new Error('Update failed!');
+  });
+}
+
 export default {
   signup,
   logout,
   login,
-  getUser
+  getUser,
+  update
 };
