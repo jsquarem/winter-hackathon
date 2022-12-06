@@ -7,7 +7,7 @@ import HomePage from '../HomePage/HomePage';
 import LoginPage from '../LoginPage/LoginPage';
 import SignupPage from '../SignupPage/SignupPage';
 import userService from '../../utils/userService';
-import Campaign from '../Campaign/Campaign';
+import Project from '../Project/Project';
 
 function App() {
   const [user, setUser] = useState(userService.getUser());
@@ -34,8 +34,8 @@ function App() {
       />
       {/* <Route path="/*" element={<PageNotFound />} /> */}
       <Route 
-        path='/campaign' 
-        element={<Campaign/>}/>
+        path='/project' 
+        element={<Project/>}/>
     </Routes>
   );
 }
