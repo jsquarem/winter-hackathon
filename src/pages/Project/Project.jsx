@@ -3,12 +3,10 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import InputGroup from 'react-bootstrap/InputGroup';
 import './project.css'
+import { Link } from 'react-router-dom';
 
-export default function Project() {
+export default function Project({handleSignUpOrLogin}) {
     const [project, setProject] = useState({
         wishList: '',
         projectTitle:'',
@@ -20,7 +18,7 @@ export default function Project() {
     function handleChange(e) {
       setProject({
           ...project,
-          [e.target.projectTitle]: e.target.value
+          [e.target.name]: e.target.value
         });
       }
 
@@ -41,9 +39,9 @@ export default function Project() {
             <div 
               className='addMedia' 
               value={project.wishList}> 
-              <a href="#">
+              <Link href="#">
                 <Button >+</Button>
-                </a>
+                </Link>
               </div>
         </Form.Group>
         <Form.Group className="mb-4" controlId="formProjectTitle">
@@ -58,43 +56,56 @@ export default function Project() {
         </Form.Group>
         <Form.Group className="mb-3" controlId="formProjectDescription">
             <Form.Label>Project Description</Form.Label>
+
             <Form.Control 
                 as="textarea"
                 type="text" 
                 placeholder="Project Description" 
+                name="projectDescription"
                 value={project.projectDescription} 
                 onChange={handleChange}
-                rowS={4}/>
+                rows={4}/>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formAddMedia">
             <Form.Label>Add Media</Form.Label>
             <div 
               className='addMedia'
+              name="addMedia"
               value={project.addMedia} 
               onChange={handleChange}>
-                <a href="#">
+                <Link href="#">
                   <Button >+</Button>
-                </a>
+                </Link>
               </div>
         </Form.Group> 
         <Form.Label>Subject Area</Form.Label>
-        <InputGroup className="mb-3">
-        <Form.Control aria-label="Text input with dropdown button" />
-              <DropdownButton
-              variant="outline-secondary"
-              title=""
-              id="input-group-dropdown-2"
-              align="end"
-              value={project.subjectArea} 
-              onChange={handleChange}
+        <Form.Select
+            aria-label="Default select example"
+            name="subjectArea"
+            value={project.subjectArea} 
+            onChange={handleChange}
             >
-              <Dropdown.Item href="#">Elementray school</Dropdown.Item>
-              <Dropdown.Item href="#">Middle school</Dropdown.Item>
-              <Dropdown.Item href="#">High School</Dropdown.Item>
-              <Dropdown.Divider />
-              <Dropdown.Item href="#">Separated link</Dropdown.Item>
-            </DropdownButton>
-          </InputGroup>
+          <option ></option>
+          <option value="1">Algebra</option>
+          <option value="2">Art</option>
+          <option value="3">Biology</option>
+          <option value="4">Chemistry</option>
+          <option value="5">Drama</option>
+          <option value="6">English</option>
+          <option value="7">Foreign Languages</option>
+          <option value="8">Geography</option>
+          <option value="9">Geometry</option>
+          <option value="10">History</option>
+          <option value="11">Information Technology</option>
+          <option value="12">Math</option>
+          <option value="13">Music</option>
+          <option value="14">Literature</option>
+          <option value="15">Philosphy</option>
+          <option value="16">Physical Education</option>
+          <option value="16">Physics</option>
+          <option value="16">Social Studies</option>
+        </Form.Select>
+        <br/>
         <Button variant="success" type="submit">
             Publish Project 
         </Button>
