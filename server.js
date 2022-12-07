@@ -28,7 +28,7 @@ app.use('/api/products', require('./routes/api/products'));
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/teachers', require('./routes/api/teachers'));
 app.use('/api/schools', require('./routes/api/schools'));
-
+app.use('/api/projects', require('./routes/api/projects'));
 
 // "catch all" route
 app.get('/*', function (req, res) {

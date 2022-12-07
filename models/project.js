@@ -22,10 +22,6 @@ const projectSchema = new mongoose.Schema(
       type:String,
       required:true,
     },
-    dateEnds: {
-      type: Date,
-      required: true
-    },
     requests: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Request' }]
   },
   {

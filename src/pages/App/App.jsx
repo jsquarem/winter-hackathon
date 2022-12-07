@@ -70,7 +70,7 @@ export default function App() {
           element={<ProfilePage user={user} />}
         />
         {/* <Route path="/*" element={<PageNotFound />} /> */}
-        <Route path="/project" element={<Project />} />
+        <Route path="/projects" element={<Project />} />
       </Routes>
       <Footer />
     </>

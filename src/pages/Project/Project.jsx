@@ -39,15 +39,16 @@ export default function Project({handleSignUpOrLogin}) {
               className='addMedia' 
               value={project.wishList}> 
               <Link href="#">
-                <Button >+</Button>
+                <Button variant="outline-secondary" >+</Button>
                 </Link>
               </div>
+              <p>Add a project </p>
         </Form.Group>
         <Form.Group className="mb-4" controlId="formProjectTitle">
             <Form.Label>Project Title</Form.Label>
             <Form.Control 
                 type="text" 
-                placeholder="Project Title" 
+                placeholder="What's your project called?" 
                 name="projectTitle"
                 value={project.projectTitle} 
                 onChange={handleChange}
@@ -59,7 +60,7 @@ export default function Project({handleSignUpOrLogin}) {
             <Form.Control 
                 as="textarea"
                 type="text" 
-                placeholder="Project Description" 
+                placeholder="Share about your project." 
                 name="projectDescription"
                 value={project.projectDescription} 
                 onChange={handleChange}
@@ -73,7 +74,7 @@ export default function Project({handleSignUpOrLogin}) {
               value={project.addMedia} 
               onChange={handleChange}>
                 <Link href="#">
-                  <Button >+</Button>
+                  <Button variant="outline-secondary">+</Button>
                 </Link>
               </div>
         </Form.Group> 
@@ -105,9 +106,17 @@ export default function Project({handleSignUpOrLogin}) {
           <option value="16">Social Studies</option>
         </Form.Select>
         <br/>
-        <Button variant="success" type="submit">
+        <div className="row">
+            <div className="d-grid col-2 mx-auto end">
+              <Button variant="success text-white" type="submit">
+                {'Next'}
+              </Button>
+            </div>
+          </div>
+          
+        {/* <Button variant="success" type="submit">
             Publish Project 
-        </Button>
+        </Button> */}
         </Form>
           </Card.Body>
         </Card>
