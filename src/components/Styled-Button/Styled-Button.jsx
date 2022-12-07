@@ -9,6 +9,5 @@ export default function StyledButton () {
       <ArrowRight className="arrow-right" size={20} />
       <p className="next">Next</p>
     </div>
-
   )
 }
