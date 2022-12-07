@@ -19,3 +19,11 @@
   font-size: 10px;
   text-align: center;
 }
+
+.arrow-right {
+  /* text-align: center; */
+  color: #2E4052;
+  position: relative;
+  top: -28px;
+  left: 5px;
+}
