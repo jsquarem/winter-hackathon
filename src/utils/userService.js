@@ -1,6 +1,6 @@
 import tokenService from './tokenService';
 
-const BASE_URL = '/api/users/';
+const BASE_URL = 'https://winter-hackathon.vercel.app/api/users/';
 
 function signup(user) {
   //console.log(user, '<-user in signup');
