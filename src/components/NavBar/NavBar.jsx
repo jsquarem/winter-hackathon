@@ -10,7 +10,7 @@ export default function NavBar() {
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
-        <Navbar.Brand href="/">Teacher Assist</Navbar.Brand>
+        <Navbar.Brand href="/"><img src="https://catcollection7-11.s3.us-east-2.amazonaws.com/teachaid-logo-dark.png"/></Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -21,6 +21,7 @@ export default function NavBar() {
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/signup">Sign Up</Nav.Link>
             <Nav.Link href="/login">Login</Nav.Link>
+            <Nav.Link href="/getstarted">Get Started</Nav.Link>
           </Nav>
           <Form className="d-flex">
             <Form.Control
