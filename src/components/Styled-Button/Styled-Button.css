@@ -2,6 +2,7 @@
 
 .next-page {
   width: 30px;
+  height: 40px;
 }
 
 .styled-button {
@@ -14,6 +15,8 @@
 }
 
 .next {
+  position: relative;
+  top: -24px;
   color: #808080;
   font-family: 'Red Hat Text', sans-serif;
   font-size: 10px;
@@ -21,7 +24,6 @@
 }
 
 .arrow-right {
-  /* text-align: center; */
   color: #2E4052;
   position: relative;
   top: -28px;
