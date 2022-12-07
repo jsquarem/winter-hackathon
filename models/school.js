@@ -7,23 +7,21 @@ const schoolSchema = new mongoose.Schema(
       required: true,
       unique: false
     },
-    address: {
-      street1: {
-        type: String,
-        required: true
-      },
-      street2: {
-        type: String,
-        required: false
-      },
-      city: {
-        type: String,
-        required: true
-      },
-      state: {
-        type: String,
-        required: true
-      }
+    address1: {
+      type: String,
+      required: true
+    },
+    address2: {
+      type: String,
+      required: false
+    },
+    city: {
+      type: String,
+      required: true
+    },
+    state: {
+      type: String,
+      required: true
     },
     phone: {
       type: String,
