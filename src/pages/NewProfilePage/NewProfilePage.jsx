@@ -124,7 +124,7 @@ export default function NewProfilePage({
     navigate(`/profile/${teacherProfile._id}`);
     console.log(teacherProfile, '<-teacherProfile');
   };
-  
+
   if (step == 1) {
     return (
       <Container>
