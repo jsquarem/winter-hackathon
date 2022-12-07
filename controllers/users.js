@@ -4,6 +4,7 @@ const SECRET = process.env.SECRET;
 
 const signup = async (req, res) => {
   console.log(req.body, ' req.body in signup');
+  res.set('Access-Control-Allow-Origin', '*');
   const user = new User({ ...req.body });
   console.log(user, '<-user');
   try {
@@ -30,6 +31,7 @@ const signup = async (req, res) => {
 };
 
 const login = async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
   try {
     const user = await User.findOne({ email: req.body.email });
     console.log(user, ' this user in login');
