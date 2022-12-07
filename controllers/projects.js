@@ -1,16 +1,19 @@
 const Project = require('../models/project');
-const jwt = require('jsonwebtoken');
-const SECRET = process.env.SECRET;
+
+const createProject = async (req, res) => {
+  console.log(req.body, ' req.body in create Project');
+  const project = new Project({ ...req.body });
+  try {
+    await project.save();
+    return res.status(200).json(project);
+  } catch (err) {
+    res.status(500).json({
+      err: err,
+      message: 'Internal Server Error, Please try again'
+    });
+  }
+};
 
 module.exports = {
-   publishproject
-  };
-
-  async function publishproject(req, res) {
-    try {
-      const project = await Project.findOne({  });
-      console.log(project, ' this project publish ');
-    } catch (err) {
-      return res.status(401).json({ err: 'error message' });
-    }
-  }
+  createProject
+};
