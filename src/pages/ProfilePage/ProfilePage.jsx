@@ -1,9 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import teacherService from '../../utils/teacherService';
+import Container from 'react-bootstrap/Container';
 import CircleAddButton from '../../components/CircleAddButton/CircleAddButton';
+import ProjectThumbNail from '../../components/ProjectThumbNail/ProjectThumbNail';
+import './ProfilePage.css';
 
 export default function ProfilePage({ user }) {
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState([
+    {
+      projectTitle: 'Help our class get a whiteboard!',
+      projectDescription:
+        "Some quick example text to build on the card title and make up the bulk of the card's content.",
+      imageURL:
+        'https://catcollection7-11.s3.us-east-2.amazonaws.com/classroom1-888x500.png'
+    }
+  ]);
+
   const [teacher, setTeacher] = useState({
     schoolEmail: '',
     phone: '',
@@ -37,10 +49,50 @@ export default function ProfilePage({ user }) {
   console.log(teacher, '<-teacher');
 
   return (
-    <>
-      <h1>{user.firstName}'s Profile</h1>
-      <h3>{teacher.school.name}</h3>
-      <CircleAddButton url="url" />
-    </>
+    <Container>
+      <div className="row">
+        <div className="col-12 text-center">Breadcrumb</div>
+      </div>
+      <div className="row mt-3">
+        <div className="col-6">
+          <img
+            style={{ width: '100%' }}
+            src="https://catcollection7-11.s3.us-east-2.amazonaws.com/teacher.png"
+          />
+        </div>
+        <div className="col-6 pt-5">
+          <h2>
+            {user.firstName} {user.lastName}
+          </h2>
+          <h5>{teacher.school.name}</h5>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-12 mt-4">
+          <div className="col-auto">
+            <h6>My Projects ({teacher.projects.length})</h6>
+            <CircleAddButton url="url" />
+            <p>Add a project</p>
+          </div>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-12">
+          <h6 className="mt-5">Other Projects at my School...</h6>
+          <div className="col-12 thumbnail-container p-2 rounded pt-3">
+            <div className="row">
+              <div className="col-12 d-flex justify-content-center mb-4">
+                <ProjectThumbNail project={projects[0]} />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-12 d-flex justify-content-center">
+                <ProjectThumbNail project={projects[0]} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
   );
 }
