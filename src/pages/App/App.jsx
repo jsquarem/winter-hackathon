@@ -27,7 +27,8 @@ function App() {
     setUser({
       ...user,
       firstName: updatedUser.firstName,
-      lastName: updatedUser.lastName
+      lastName: updatedUser.lastName,
+      teacherProfile: updatedUser.teacherProfile
     });
   };
 

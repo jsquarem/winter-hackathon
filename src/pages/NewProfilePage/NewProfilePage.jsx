@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import SuccessMessage from '../../components/SuccessMessage/SuccessMessage';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import userService from '../../utils/userService';
 import { Link, useNavigate } from 'react-router-dom';
+import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
-import Accordion from 'react-bootstrap/Accordion';
-import { useAccordionButton } from 'react-bootstrap/AccordionButton';
+import Button from 'react-bootstrap/Button';
+import Collapse from 'react-bootstrap/Collapse';
+import userService from '../../utils/userService';
+import teacherService from '../../utils/teacherService';
+import schoolService from '../../utils/schoolService';
 
 export default function NewProfilePage({ user, handleUserUpdate }) {
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(1);
   console.log(step, '<-step');
   const [error, setError] = useState({
     message: '',
@@ -20,12 +20,11 @@ export default function NewProfilePage({ user, handleUserUpdate }) {
   const [success, setSuccess] = useState({
     message: ''
   });
-  const [state, setState] = useState({
+  const [userState, setUserState] = useState({
     userEmail: user.email,
     firstName: user.firstName,
     lastName: user.lastName,
-    schoolEmail: '',
-    phoneNumber: ''
+    teacherProfile: ''
   });
   const [schoolSearch, setSchoolSearch] = useState({
     query: ''
@@ -34,14 +33,30 @@ export default function NewProfilePage({ user, handleUserUpdate }) {
     name: '',
     address1: '',
     address2: '',
+    city: '',
     zipcode: '',
     state: '',
     phone: ''
   });
+  const [teacherProfileState, setTeacherProfileState] = useState({
+    schoolEmail: '',
+    phone: '',
+    bio: '',
+    school: '',
+    userEmail: user.email
+  });
+  const [openSchoolForm, setOpenSchoolForm] = useState(false);
 
-  const handleChange = (e) => {
-    setState({
-      ...state,
+  const handleUserChange = (e) => {
+    setUserState({
+      ...userState,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleTeacherProfileChange = (e) => {
+    setTeacherProfileState({
+      ...teacherProfileState,
       [e.target.name]: e.target.value
     });
   };
@@ -64,8 +79,8 @@ export default function NewProfilePage({ user, handleUserUpdate }) {
     try {
       console.log('in update1');
       const updateUserObject = {
-        firstName: state.firstName,
-        lastName: state.lastName,
+        firstName: userState.firstName,
+        lastName: userState.lastName,
         userEmail: user.email
       };
       const updatedUser = await userService.update(updateUserObject);
@@ -80,10 +95,28 @@ export default function NewProfilePage({ user, handleUserUpdate }) {
     }
   };
 
-  const handleSchoolSubmit = () => {};
+  const handleSchoolSubmit = async (e) => {
+    e.preventDefault();
+    const school = await schoolService.create(schoolState);
+    console.log(school, '<-school');
+    const schoolID = school._id;
+    setTeacherProfileState({
+      ...teacherProfileState,
+      school: schoolID
+    });
+    setOpenSchoolForm(false);
+  };
 
   const handleSubmit = (e) => {
     setStep(2);
+  };
+
+  const handleProfileSubmit = async (e) => {
+    e.preventDefault();
+    console.log(teacherProfileState, '<-teacherProfileState');
+    const teacherProfile = await teacherService.create(teacherProfileState);
+    handleUserUpdate(teacherProfile);
+    console.log(teacherProfile, '<-teacherProfile');
   };
 
   if (step == 1) {
@@ -101,8 +134,8 @@ export default function NewProfilePage({ user, handleUserUpdate }) {
                       type="text"
                       placeholder="First Name"
                       name="firstName"
-                      value={state.firstName}
-                      onChange={handleChange}
+                      value={userState.firstName}
+                      onChange={handleUserChange}
                       required
                     />
                   </Form.Group>
@@ -114,8 +147,8 @@ export default function NewProfilePage({ user, handleUserUpdate }) {
                       type="text"
                       placeholder="Last Name"
                       name="lastName"
-                      value={state.lastName}
-                      onChange={handleChange}
+                      value={userState.lastName}
+                      onChange={handleUserChange}
                       required
                     />
                   </Form.Group>
@@ -147,13 +180,15 @@ export default function NewProfilePage({ user, handleUserUpdate }) {
               <div className="row">
                 <div className="col-12">
                   <Form.Group className="mb-3" controlId="formSchoolEmail">
-                    <Form.Label>School Email</Form.Label>
+                    <Form.Label>
+                      School Email<sup>*</sup>
+                    </Form.Label>
                     <Form.Control
                       type="text"
                       placeholder="youremail@school.edu"
                       name="schoolEmail"
-                      value={state.schoolEmail}
-                      onChange={handleChange}
+                      value={teacherProfileState.schoolEmail}
+                      onChange={handleTeacherProfileChange}
                       required
                     />
                   </Form.Group>
@@ -162,9 +197,9 @@ export default function NewProfilePage({ user, handleUserUpdate }) {
                     <Form.Control
                       type="text"
                       placeholder="1 (555) 555-1234"
-                      name="phoneNumber"
-                      value={state.phoneNumber}
-                      onChange={handleChange}
+                      name="phone"
+                      value={teacherProfileState.phone}
+                      onChange={handleTeacherProfileChange}
                     />
                   </Form.Group>
                   <Form.Group className="mb-3" controlId="formBio">
@@ -174,9 +209,10 @@ export default function NewProfilePage({ user, handleUserUpdate }) {
                       rows={3}
                       placeholder="Tell us about yourself"
                       name="bio"
-                      value={state.bio}
-                      onChange={handleChange}
+                      value={teacherProfileState.bio}
+                      onChange={handleTeacherProfileChange}
                     />
+                    <div className="col-12">* denotes required fields</div>
                   </Form.Group>
                   <div className="row">
                     <div className="d-grid col-12 mx-auto">
@@ -216,112 +252,160 @@ export default function NewProfilePage({ user, handleUserUpdate }) {
             </Form.Group>
           </div>
         </div>
+        <div className="col-12">
+          <h4>My School:</h4>
+          {teacherProfileState.school ? (
+            <>
+              <h5>{schoolState.name}</h5>
+              <p>
+                {schoolState.address1} {schoolState.address2}
+                <br />
+                {schoolState.city}, {schoolState.state} {schoolState.zip} <br />
+                {schoolState.phone}
+              </p>
+            </>
+          ) : (
+            <p>Search for your school above or add if if you don't find it!</p>
+          )}
+        </div>
         <div className="row">
-          <div className="col-12">
-            <h4>Don't see your school?</h4>
-            <h3>Add it below!</h3>
-            <Accordion>
-              <Accordion.Item eventKey="0">
-                <Accordion.Header>Add New School</Accordion.Header>
-                <Accordion.Body>
-                  <Form className="form" onSubmit={handleSchoolSubmit}>
-                    <div className="col-12">
-                      <Form.Group className="mb-3" controlId="formSchoolName">
-                        <Form.Label>School Name</Form.Label>
-                        <Form.Control
-                          type="text"
-                          placeholder=""
-                          name="name"
-                          value={schoolState.name}
-                          onChange={handleSchoolChange}
-                        />
-                      </Form.Group>
-                    </div>
-                    <div className="col-12">
-                      <Form.Group
-                        className="mb-3"
-                        controlId="formSchoolAddress1"
-                      >
-                        <Form.Label>Street Address 1</Form.Label>
-                        <Form.Control
-                          type="text"
-                          placeholder=""
-                          name="address1"
-                          value={schoolState.address1}
-                          onChange={handleSchoolChange}
-                        />
-                      </Form.Group>
-                    </div>
-                    <div className="col-12">
-                      <Form.Group
-                        className="mb-3"
-                        controlId="formSchoolAddress2"
-                      >
-                        <Form.Label>Street Address 2</Form.Label>
-                        <Form.Control
-                          type="text"
-                          placeholder=""
-                          name="address1"
-                          value={schoolState.address2}
-                          onChange={handleSchoolChange}
-                        />
-                      </Form.Group>
-                    </div>
-                    <div className="row">
-                      <div className="col-6">
-                        <Form.Group
-                          className="mb-3"
-                          controlId="formSchoolZipCode"
-                        >
-                          <Form.Label>Zipcode</Form.Label>
-                          <Form.Control
-                            type="text"
-                            placeholder=""
-                            name="zipcode"
-                            value={schoolState.zipcode}
-                            onChange={handleSchoolChange}
-                          />
-                        </Form.Group>
-                      </div>
-                      <div className="col-6">
-                        <Form.Group
-                          className="mb-3"
-                          controlId="formSchoolState"
-                        >
-                          <Form.Label>State</Form.Label>
-                          <Form.Control
-                            type="text"
-                            placeholder=""
-                            name="state"
-                            value={schoolState.state}
-                            onChange={handleSchoolChange}
-                          />
-                        </Form.Group>
-                      </div>
-                    </div>
-                    <div className="col-12">
-                      <Form.Group className="mb-3" controlId="formSchoolPhone">
-                        <Form.Label>Phone Number</Form.Label>
-                        <Form.Control
-                          type="text"
-                          placeholder=""
-                          name="phone"
-                          value={schoolState.phone}
-                          onChange={handleSchoolChange}
-                        />
-                      </Form.Group>
-                    </div>
-                    <div className="row">
-                      <div className="d-grid col-12 mx-auto">
-                        <Button variant="primary text-white" type="submit">
-                          Add School
-                        </Button>
-                      </div>
-                    </div>
-                  </Form>
-                </Accordion.Body>
-              </Accordion.Item>
-            </Accordion>
+          <div className="col-12 mt-5">
+            <h4 className="text-center">Don't see your school?</h4>
+            <h3 className="text-center">Add it below!</h3>
+            <div className="col-12 text-center">
+              <Button
+                onClick={() => setOpenSchoolForm(!openSchoolForm)}
+                aria-controls="example-collapse-text"
+                aria-expanded={openSchoolForm}
+              >
+                Add New School
+              </Button>
+            </div>
+            <Collapse in={openSchoolForm}>
+              <Form className="form" onSubmit={handleSchoolSubmit}>
+                <div className="col-12">
+                  <Form.Group className="mb-3" controlId="formSchoolName">
+                    <Form.Label>
+                      School Name<sup>*</sup>
+                    </Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder=""
+                      name="name"
+                      value={schoolState.name}
+                      onChange={handleSchoolChange}
+                      required
+                    />
+                  </Form.Group>
+                </div>
+                <div className="col-12">
+                  <Form.Group className="mb-3" controlId="formSchoolAddress1">
+                    <Form.Label>
+                      Street Address 1<sup>*</sup>
+                    </Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder=""
+                      name="address1"
+                      value={schoolState.address1}
+                      onChange={handleSchoolChange}
+                      required
+                    />
+                  </Form.Group>
+                </div>
+                <div className="row">
+                  <div className="col-6">
+                    <Form.Group className="mb-3" controlId="formSchoolAddress2">
+                      <Form.Label>Street Address 2</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder=""
+                        name="address2"
+                        value={schoolState.address2}
+                        onChange={handleSchoolChange}
+                      />
+                    </Form.Group>
+                  </div>
+                  <div className="col-6">
+                    <Form.Group className="mb-3" controlId="formCity">
+                      <Form.Label>
+                        City<sup>*</sup>
+                      </Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder=""
+                        name="city"
+                        value={schoolState.city}
+                        onChange={handleSchoolChange}
+                        required
+                      />
+                    </Form.Group>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-6">
+                    <Form.Group className="mb-3" controlId="formSchoolState">
+                      <Form.Label>
+                        State<sup>*</sup>
+                      </Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder=""
+                        name="state"
+                        value={schoolState.state}
+                        onChange={handleSchoolChange}
+                        required
+                      />
+                    </Form.Group>
+                  </div>
+                  <div className="col-6">
+                    <Form.Group className="mb-3" controlId="formSchoolZipCode">
+                      <Form.Label>
+                        Zipcode<sup>*</sup>
+                      </Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder=""
+                        name="zipcode"
+                        value={schoolState.zipcode}
+                        onChange={handleSchoolChange}
+                        required
+                      />
+                    </Form.Group>
+                  </div>
+                </div>
+                <div className="col-12">
+                  <Form.Group className="mb-3" controlId="formSchoolPhone">
+                    <Form.Label>
+                      Phone Number<sup>*</sup>
+                    </Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder=""
+                      name="phone"
+                      value={schoolState.phone}
+                      onChange={handleSchoolChange}
+                      required
+                    />
+                  </Form.Group>
+                  <p>* denotes required field</p>
+                </div>
+                <div className="row">
+                  <div className="d-grid col-12 mx-auto">
+                    <Button variant="primary text-white" type="submit">
+                      Add School
+                    </Button>
+                  </div>
+                </div>
+              </Form>
+            </Collapse>
+          </div>
+        </div>
+        <div className="row">
+          <div className="d-grid col-12 mx-auto mt-5">
+            <Button variant="primary text-white" onClick={handleProfileSubmit}>
+              Create Profile
+            </Button>
           </div>
         </div>
       </Container>
