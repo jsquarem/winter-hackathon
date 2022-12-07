@@ -8,6 +8,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import SignupPage from '../SignupPage/SignupPage';
 import userService from '../../utils/userService';
 
+
 function App() {
   const [user, setUser] = useState(userService.getUser());
   console.log(user, '<-user in app');
