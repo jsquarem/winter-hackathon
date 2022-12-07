@@ -26,6 +26,9 @@ app.use(express.static(path.join(__dirname, 'build'))); // this allows express t
 // api routes must be before the "catch all" route
 app.use('/api/products', require('./routes/api/products'));
 app.use('/api/users', require('./routes/api/users'));
+app.use('/api/teachers', require('./routes/api/teachers'));
+app.use('/api/schools', require('./routes/api/schools'));
+
 
 // "catch all" route
 app.get('/*', function (req, res) {

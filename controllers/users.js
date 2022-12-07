@@ -2,13 +2,7 @@ const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const SECRET = process.env.SECRET;
 
-module.exports = {
-  signup,
-  login,
-  update
-};
-
-async function signup(req, res) {
+const signup = async (req, res) => {
   console.log(req.body, ' req.body in signup');
   const user = new User({ ...req.body });
   console.log(user, '<-user');
@@ -33,9 +27,9 @@ async function signup(req, res) {
       });
     }
   }
-}
+};
 
-async function login(req, res) {
+const login = async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     console.log(user, ' this user in login');
@@ -52,7 +46,22 @@ async function login(req, res) {
   } catch (err) {
     return res.status(401).json({ err: 'error message' });
   }
-}
+};
+
+const update = async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+  const userEmail = req.body.userEmail;
+  try {
+    const user = await User.findOne({ email: userEmail });
+    console.log(user, '<-user updating');
+    user.firstName = req.body.firstName;
+    user.lastName = req.body.lastName;
+    await user.save();
+    return res.status(200).json(user);
+  } catch (err) {
+    return res.status(401).json(err);
+  }
+};
 
 async function update(req, res) {
   res.set('Access-Control-Allow-Origin', '*');
@@ -71,16 +80,22 @@ async function update(req, res) {
 
 /*----- Helper Functions -----*/
 
-function createJWT(user) {
+const createJWT = (user) => {
   return jwt.sign(
     { user }, // data payload
     SECRET,
     { expiresIn: '24h' }
   );
-}
+};
 
-function identifyKeyInMongooseValidationError(err) {
+const identifyKeyInMongooseValidationError = (err) => {
   let key = err.split('dup key: {')[1].trim();
   key = key.slice(0, key.indexOf(':'));
   return key.replace(/^./, (str) => str.toUpperCase());
-}
+};
+
+module.exports = {
+  signup,
+  login,
+  update
+};
