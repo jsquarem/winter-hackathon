@@ -8,6 +8,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import SignupPage from '../SignupPage/SignupPage';
 import NewProfilePage from '../NewProfilePage/NewProfilePage';
 import userService from '../../utils/userService';
+import Project from '../Project/Project';
 
 function App() {
   const [user, setUser] = useState(userService.getUser());
@@ -48,6 +49,9 @@ function App() {
         }
       />
       {/* <Route path="/*" element={<PageNotFound />} /> */}
+      <Route 
+        path='/project' 
+        element={<Project/>}/>
     </Routes>
   );
 }
