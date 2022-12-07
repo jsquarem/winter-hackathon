@@ -63,21 +63,6 @@ const update = async (req, res) => {
   }
 };
 
-async function update(req, res) {
-  res.set('Access-Control-Allow-Origin', '*');
-  const userEmail = req.body.userEmail;
-  try {
-    const user = await User.findOne({ email: userEmail });
-    console.log(user, '<-user updating');
-    user.firstName = req.body.firstName;
-    user.lastName = req.body.lastName;
-    await user.save();
-    return res.status(200).json(user);
-  } catch (err) {
-    return res.status(401).json(err);
-  }
-}
-
 /*----- Helper Functions -----*/
 
 const createJWT = (user) => {
