@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -6,7 +6,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-function NavBar() {
+export default function NavBar() {
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
@@ -20,7 +20,7 @@ function NavBar() {
           >
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/signup">Sign Up</Nav.Link>
-            <Nav.Link href="/login" >Login</Nav.Link>
+            <Nav.Link href="/login">Login</Nav.Link>
           </Nav>
           <Form className="d-flex">
             <Form.Control
@@ -34,7 +34,5 @@ function NavBar() {
         </Navbar.Collapse>
       </Container>
     </Navbar>
-  )
+  );
 }
-
-export default NavBar
