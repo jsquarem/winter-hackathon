@@ -7,8 +7,9 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import InputGroup from 'react-bootstrap/InputGroup';
 import './project.css'
+import { Link } from 'react-router-dom';
 
-export default function Project() {
+export default function Project({handleSignUpOrLogin}) {
     const [project, setProject] = useState({
         wishList: '',
         projectTitle:'',
@@ -20,7 +21,7 @@ export default function Project() {
     function handleChange(e) {
       setProject({
           ...project,
-          [e.target.projectTitle]: e.target.value
+          [e.target.name]: e.target.value
         });
       }
 
@@ -41,9 +42,9 @@ export default function Project() {
             <div 
               className='addMedia' 
               value={project.wishList}> 
-              <a href="#">
+              <Link href="#">
                 <Button >+</Button>
-                </a>
+                </Link>
               </div>
         </Form.Group>
         <Form.Group className="mb-4" controlId="formProjectTitle">
@@ -58,13 +59,16 @@ export default function Project() {
         </Form.Group>
         <Form.Group className="mb-3" controlId="formProjectDescription">
             <Form.Label>Project Description</Form.Label>
+
             <Form.Control 
+
                 as="textarea"
                 type="text" 
                 placeholder="Project Description" 
+                name="projectDescription"
                 value={project.projectDescription} 
                 onChange={handleChange}
-                rowS={4}/>
+                rows={4}/>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formAddMedia">
             <Form.Label>Add Media</Form.Label>
@@ -72,14 +76,18 @@ export default function Project() {
               className='addMedia'
               value={project.addMedia} 
               onChange={handleChange}>
-                <a href="#">
+                <Link href="#">
                   <Button >+</Button>
-                </a>
+                </Link>
               </div>
         </Form.Group> 
         <Form.Label>Subject Area</Form.Label>
         <InputGroup className="mb-3">
-        <Form.Control aria-label="Text input with dropdown button" />
+        <Form.Control 
+            aria-label="Text input with dropdown button" 
+            name="subjectArea"
+            value={project.subjectArea} 
+            onChange={handleChange}/>
               <DropdownButton
               variant="outline-secondary"
               title=""
@@ -88,11 +96,29 @@ export default function Project() {
               value={project.subjectArea} 
               onChange={handleChange}
             >
-              <Dropdown.Item href="#">Elementray school</Dropdown.Item>
-              <Dropdown.Item href="#">Middle school</Dropdown.Item>
-              <Dropdown.Item href="#">High School</Dropdown.Item>
+              <Dropdown.Item href="#">Algebra</Dropdown.Item>
+              <Dropdown.Item href="#">Art</Dropdown.Item>
+              <Dropdown.Item href="#">Biology</Dropdown.Item>
+              <Dropdown.Item href="#">Chemistry</Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item href="#">Separated link</Dropdown.Item>
+              <Dropdown.Item href="#">Drama</Dropdown.Item>
+              <Dropdown.Item href="#">English</Dropdown.Item>
+              <Dropdown.Item href="#">Foreign Languages</Dropdown.Item>
+              <Dropdown.Item href="#">Geography</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item href="#">Geometry</Dropdown.Item>
+              <Dropdown.Item href="#">History</Dropdown.Item>
+              <Dropdown.Item href="#">Information Technology</Dropdown.Item>
+              <Dropdown.Item href="#">Math</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item href="#">Music</Dropdown.Item>
+              <Dropdown.Item href="#">Literature</Dropdown.Item>
+              <Dropdown.Item href="#">Philosphy</Dropdown.Item>
+              <Dropdown.Item href="#">Physical Education</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item href="#">Physics</Dropdown.Item>
+              <Dropdown.Item href="#">Science</Dropdown.Item>
+              <Dropdown.Item href="#">Social Studies</Dropdown.Item>
             </DropdownButton>
           </InputGroup>
         <Button variant="success" type="submit">
