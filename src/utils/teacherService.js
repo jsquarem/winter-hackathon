@@ -16,6 +16,17 @@ function create(profileData) {
   });
 }
 
+function getTeacherData(id) {
+  const queryURL = `${BASE_URL}find/${id}/`;
+  return fetch(queryURL, {
+    method: 'GET'
+  }).then((res) => {
+    if (res.ok) return res.json();
+    return { error: 'Cannot find Teacher' };
+  });
+}
+
 export default {
-  create
+  create,
+  getTeacherData
 };

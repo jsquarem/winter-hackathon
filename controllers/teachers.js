@@ -28,6 +28,30 @@ const create = async (req, res) => {
   }
 };
 
+const findByUserID = async (req, res) => {
+  const userID = req.params.userID;
+  console.log(userID, 'userID in teacher controller');
+
+  try {
+    const user = await User.findOne({ _id: userID });
+    console.log(user, '<-user in teacher controller');
+    const teacherProfileID = user.teacherProfile;
+    const teacherProfile = await TeacherProfile.findOne({
+      _id: teacherProfileID
+    }).populate('school');
+    // teacherProfile;
+    console.log(teacherProfile, '<-teacherProfile in teacher controller');
+
+    return res.status(200).json(teacherProfile);
+  } catch (err) {
+    res.status(500).json({
+      err: err,
+      message: 'Internal Server Error, Please try again'
+    });
+  }
+};
+
 module.exports = {
-  create
+  create,
+  findByUserID
 };
