@@ -5,15 +5,30 @@ import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import './project.css'
 import { Link } from 'react-router-dom';
+import CircleAddButton from '../../components/CircleAddButton/CircleAddButton';
+import {useForm} from 'react-hook-form'
 
-export default function Project({handleSignUpOrLogin}) {
+
+export default function Project({handleProject}) {
     const [project, setProject] = useState({
         wishList: '',
         projectTitle:'',
         projectDescription:'',
-        addMedia: '',
+        imageURL: '',
         subjectArea:'',
     })
+
+    const {register} = useForm()
+
+    const onSubmit = async (data) =>{
+      const formData = new FormData();
+      formData.append ("file", data.file[0])
+      const res = await fetch("http://localhost:3000/upload-file", {
+        method: "POST",
+        body: formData,
+      }).then ((res) => res.json())
+      alert(JSON.stringify(`${res.message}, status:$ {res.status}`))
+    }
 
     function handleChange(e) {
       setProject({
@@ -25,6 +40,7 @@ export default function Project({handleSignUpOrLogin}) {
   const formSubmitHandler = (event) => {
     event.preventDefault();
   };
+
   return (
     <>
     <Container>
@@ -32,15 +48,16 @@ export default function Project({handleSignUpOrLogin}) {
         <h1 className="text-center mt-5">Projects</h1>
         <Card>
           <Card.Body>
-        <Form onSubmit={formSubmitHandler}> 
+        <Form onSubmit={formSubmitHandler(onSubmit)}> 
         <Form.Group className="mb-4" controlId="formWishList">
             <Form.Label>My Wishlist </Form.Label>
             <div 
               className='addMedia' 
               value={project.wishList}> 
-              <Link href="#">
+              <CircleAddButton url="url" /> 
+              {/* <Link href="#">
                 <Button variant="outline-secondary" >+</Button>
-                </Link>
+                </Link> */}
               </div>
               <p>Add a project </p>
         </Form.Group>
@@ -69,13 +86,13 @@ export default function Project({handleSignUpOrLogin}) {
         <Form.Group className="mb-3" controlId="formAddMedia">
             <Form.Label>Add Media</Form.Label>
             <div 
-              className='addMedia'
-              name="addMedia"
-              value={project.addMedia} 
+              className='imageURL'
+              name="imageURL"
+              value={project.imageURL} 
               onChange={handleChange}>
-                <Link href="#">
-                  <Button variant="outline-secondary">+</Button>
-                </Link>
+                 <CircleAddButton url="url" />
+
+              <br />
               </div>
         </Form.Group> 
         <Form.Label>Subject Area</Form.Label>
@@ -106,18 +123,18 @@ export default function Project({handleSignUpOrLogin}) {
           <option value="16">Social Studies</option>
         </Form.Select>
         <br/>
-        <div className="row">
-            <div className="d-grid col-2 mx-auto end">
-              <Button variant="success text-white" type="submit">
-                {'Next'}
-              </Button>
-            </div>
-          </div>
           
         {/* <Button variant="success" type="submit">
             Publish Project 
-        </Button> */}
+          </Button> */}
         </Form>
+          <div className="row">
+              <div className="d-grid col-2 mx-auto end">
+                <Button variant="success text-white" type="submit">
+                  {'Next'}
+                </Button>
+              </div>
+            </div>
           </Card.Body>
         </Card>
      </div>
