@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Text&display=swap');
+
+
+.styled-button {
+  background-color: #99CCCC;
+  border-color: #2E4052;
+  border-width: medium;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+
+.next {
+  color: #808080;
+  font-family: 'Red Hat Text', sans-serif;
+}
