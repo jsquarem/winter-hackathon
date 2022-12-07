@@ -5,11 +5,12 @@ import './index.css';
 import App from './pages/App/App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css'
-import NavBar from './components/NavBar'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
-  <Router><NavBar/><App/></Router>,
+  <Router>
+    <App />
+  </Router>,
   document.getElementById('root')
 );
 // If you want your app to work offline and load faster, you can change
