@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import teacherService from '../../utils/teacherService';
 import Container from 'react-bootstrap/Container';
 import CircleAddButton from '../../components/CircleAddButton/CircleAddButton';
@@ -10,9 +11,16 @@ export default function ProfilePage({ user }) {
     {
       projectTitle: 'Help our class get a whiteboard!',
       projectDescription:
-        "Some quick example text to build on the card title and make up the bulk of the card's content.",
+        'Our class needs a new whiteboard! Help us create/learn better and avoid harmful dust!',
       imageURL:
         'https://catcollection7-11.s3.us-east-2.amazonaws.com/classroom1-888x500.png'
+    },
+    {
+      projectTitle: 'Microscopes. Macro Hopes.',
+      projectDescription:
+        'The singlemost necessary educational tool of all time. We must have microscopes to see tiny things. If we cannot see tiny objects, we cannot see the future.',
+      imageURL:
+        'https://catcollection7-11.s3.us-east-2.amazonaws.com/classroom2-888x500.png'
     }
   ]);
 
@@ -39,11 +47,7 @@ export default function ProfilePage({ user }) {
   };
 
   useEffect(() => {
-    if (!user.teacherProfile) {
-      const teacher = getTeacher(user._id);
-    } else {
-      const teacher = user.teacherProfile;
-    }
+    const teacher = getTeacher(user._id);
   }, []);
   console.log(user, '<-user in ProfilePage');
   console.log(teacher, '<-teacher');
@@ -71,8 +75,22 @@ export default function ProfilePage({ user }) {
         <div className="col-12 mt-4">
           <div className="col-auto">
             <h6>My Projects ({teacher.projects.length})</h6>
-            <CircleAddButton url="url" />
-            <p>Add a project</p>
+            {teacher.projects.length > 0 ? (
+              <div className="col-12 thumbnail-container p-2 rounded pt-3">
+                <div className="row">
+                  <div className="col-12 d-flex justify-content-center mb-4">
+                    <ProjectThumbNail project={teacher.projects[0]} />
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <>
+                <Link to="/projects">
+                  <CircleAddButton />
+                </Link>
+                <p>Add a project</p>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -87,7 +105,7 @@ export default function ProfilePage({ user }) {
             </div>
             <div className="row">
               <div className="col-12 d-flex justify-content-center">
-                <ProjectThumbNail project={projects[0]} />
+                <ProjectThumbNail project={projects[1]} />
               </div>
             </div>
           </div>

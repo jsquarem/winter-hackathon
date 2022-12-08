@@ -38,7 +38,7 @@ const findByUserID = async (req, res) => {
     const teacherProfileID = user.teacherProfile;
     const teacherProfile = await TeacherProfile.findOne({
       _id: teacherProfileID
-    }).populate('school');
+    }).populate('school projects');
     // teacherProfile;
     console.log(teacherProfile, '<-teacherProfile in teacher controller');
 
