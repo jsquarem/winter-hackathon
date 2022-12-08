@@ -2,6 +2,9 @@
   "name": "teachaid",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "16.x"
+  },
   "dependencies": {
     "amazon-asin": "^0.10.9",
     "amazon-buddy": "^2.2.45",
