@@ -355,7 +355,6 @@ export default function NewProfilePage({
             <div className="row">
               <div className="col-12 mt-5">
                 <h4 className="text-center">Don't see your school?</h4>
-                <h3 className="text-center">Add it below!</h3>
                 <div className="col-12 text-center">
                   <Button
                     onClick={() => setOpenSchoolForm(!openSchoolForm)}

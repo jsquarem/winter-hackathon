@@ -33,9 +33,9 @@ export default function HomePage() {
         <Button href="/getstarted" variant="info" size="lg">
           Learn More
         </Button>
-        <Button href="/project" className="link" variant="link" size="lg">
+        {/* <Button href="/project" className="link" variant="link" size="lg">
           Create a Project
-        </Button>
+        </Button> */}
         <div className="circle4"></div>
       </div>
     </div>
