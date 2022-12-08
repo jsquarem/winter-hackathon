@@ -14,10 +14,6 @@ const projectSchema = new mongoose.Schema(
       type: String,
       required: false
     },
-    subjectArea: {
-      type: String,
-      required: true
-    },
     wishList: []
   },
   {

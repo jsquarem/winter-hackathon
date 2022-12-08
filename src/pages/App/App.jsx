@@ -48,7 +48,7 @@ export default function App() {
 
   return (
     <>
-      <NavBar />
+      <NavBar user={user} handleLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route
@@ -69,12 +69,14 @@ export default function App() {
             />
           }
         />
+        <Route path="/loading" element={<LoadingScreen user={user} />} />
+        <Route path="/getstarted" element={<GetStarted />} />
         <Route
           path="/profile/:teacherProfileID"
           element={<ProfilePage user={user} />}
         />
         {/* <Route path="/*" element={<PageNotFound />} /> */}
-        <Route path="/projects" element={<ProjectPage />} />
+        <Route path="/projects" element={<ProjectPage user={user} />} />
       </Routes>
       <Footer />
     </>

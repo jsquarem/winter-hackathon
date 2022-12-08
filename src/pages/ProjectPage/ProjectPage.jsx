@@ -3,50 +3,40 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
-import './project.css';
-import { Link } from 'react-router-dom';
+import './ProjectPage.css';
+import { useNavigate } from 'react-router-dom';
 import CircleAddButton from '../../components/CircleAddButton/CircleAddButton';
 // import { useForm } from 'react-hook-form';
 import WishListForm from '../../components/WishListForm/WishListForm';
 import WishListItem from '../../components/WishListItem/WishListItem';
+import ProjectOverview from '../../components/ProjectOverView/ProjectOverview';
 import projectService from '../../utils/projectService';
 
 export default function ProjectPage({ user, handleProject }) {
+  const [projectProp, setProjectProp] = useState(null);
+  const [projectStep, setProjectStep] = useState(1);
   const [addWishListState, setAddWishListState] = useState(false);
   const [wishList, setWishList] = useState([]);
   const [project, setProject] = useState({
     wishList: [],
     projectTitle: '',
     projectDescription: '',
-    imageURL: '',
+    imageURL:
+      'https://catcollection7-11.s3.us-east-2.amazonaws.com/classroom3-888x500.png',
     subjectArea: ''
   });
 
-  // const { register } = useForm();
+  const navigate = useNavigate();
 
-  const onSubmit = async (data) => {
-    const formData = new FormData();
-    formData.append('file', data.file[0]);
-    const res = await fetch('http://localhost:3000/upload-file', {
-      method: 'POST',
-      body: formData
-    }).then((res) => res.json());
-    alert(JSON.stringify(`${res.message}, status:$ {res.status}`));
-  };
-
-  function handleChange(e) {
+  const handleChange = (e) => {
     setProject({
       ...project,
       [e.target.name]: e.target.value
     });
-  }
+  };
 
   const formSubmitHandler = async (event) => {
     event.preventDefault();
-    setProject({
-      ...project,
-      wishList: wishList
-    });
     const projectObject = {
       ...project,
       wishList: wishList
@@ -57,6 +47,7 @@ export default function ProjectPage({ user, handleProject }) {
       userEmail
     });
     console.log(projectDocument, '<-projectDocument');
+    const profileID = navigate('/loading');
   };
 
   const handleClick = (e) => {
@@ -68,11 +59,23 @@ export default function ProjectPage({ user, handleProject }) {
   const addWishListItem = async (wishListItem) => {
     console.log('in addWishListItem');
     setWishList([...wishList, wishListItem]);
-    console.log(wishList);
+    setProject({
+      ...project,
+      wishList: wishList
+    });
   };
 
-  return (
-    <>
+  const handleProjectNextStep = () => {
+    console.log(project, '<-project in next step');
+    const projectObject = {
+      ...project,
+      wishList: wishList
+    };
+    setProjectProp(projectObject);
+    setProjectStep(2);
+  };
+  if (projectStep == 1) {
+    return (
       <Container>
         <div className="col-12 col-md-4 offset-md-4 mb-5 pt-5">
           <h1 className="text-center mt-5">Projects</h1>
@@ -133,33 +136,6 @@ export default function ProjectPage({ user, handleProject }) {
                     <br />
                   </div>
                 </Form.Group>
-                <Form.Label>Subject Area</Form.Label>
-                <Form.Select
-                  aria-label="Default select example"
-                  name="subjectArea"
-                  value={project.subjectArea}
-                  onChange={handleChange}
-                >
-                  <option></option>
-                  <option value="1">Algebra</option>
-                  <option value="2">Art</option>
-                  <option value="3">Biology</option>
-                  <option value="4">Chemistry</option>
-                  <option value="5">Drama</option>
-                  <option value="6">English</option>
-                  <option value="7">Foreign Languages</option>
-                  <option value="8">Geography</option>
-                  <option value="9">Geometry</option>
-                  <option value="10">History</option>
-                  <option value="11">Information Technology</option>
-                  <option value="12">Math</option>
-                  <option value="13">Music</option>
-                  <option value="14">Literature</option>
-                  <option value="15">Philosphy</option>
-                  <option value="16">Physical Education</option>
-                  <option value="16">Physics</option>
-                  <option value="16">Social Studies</option>
-                </Form.Select>
                 <br />
 
                 {/* <Button variant="success" type="submit">
@@ -170,7 +146,7 @@ export default function ProjectPage({ user, handleProject }) {
                 <div className="d-grid col-2 mx-auto end">
                   <Button
                     variant="success text-white"
-                    onClick={formSubmitHandler}
+                    onClick={handleProjectNextStep}
                   >
                     {'Next'}
                   </Button>
@@ -180,6 +156,15 @@ export default function ProjectPage({ user, handleProject }) {
           </Card>
         </div>
       </Container>
-    </>
-  );
+    );
+  }
+  if (projectStep == 2) {
+    return (
+      <ProjectOverview
+        project={projectProp}
+        formSubmitHandler={formSubmitHandler}
+        user={user}
+      />
+    );
+  }
 }
