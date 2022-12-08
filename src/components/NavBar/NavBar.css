@@ -4,5 +4,7 @@ img {
 
 .headernav {
     margin-left: -15px;
-    width: 109%;
+    width: 101%;
+    top: 0;
+    position: absolute;
 }
