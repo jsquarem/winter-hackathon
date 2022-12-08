@@ -73,7 +73,7 @@ export default function App() {
           path="/profile/:teacherProfileID"
           element={<ProfilePage user={user} />}
         />
-        {/* <Route path="/*" element={<PageNotFound />} /> */}
+        <Route path="/getstarted" element={<GetStarted />} />
         <Route path="/projects" element={<ProjectPage />} />
       </Routes>
       <Footer />
