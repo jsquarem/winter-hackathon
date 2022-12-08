@@ -12,13 +12,12 @@ import NavBar from '../../components/NavBar/NavBar';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import userService from '../../utils/userService';
-import Project from '../Project/Project';
-import LoadingScreen from '../../components/Loading/Loading'
+import ProjectPage from '../ProjectPage/ProjectPage';
+import LoadingScreen from '../../components/Loading/Loading';
 import './App.css';
 
-
 export default function App() {
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
   const [user, setUser] = useState(userService.getUser());
   console.log(user, '<-user in app');
@@ -40,39 +39,44 @@ export default function App() {
     });
   };
 
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 6000)
-  }, [])
+  const handleTeacherProfileUpdate = (updatedTeacherProfile) => {
+    setUser({
+      ...user,
+      teacherProfile: updatedTeacherProfile
+    });
+  };
 
   return (
     <>
-    { loading === false ? (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/getstarted" element={<GetStarted />} />
-      <Route
-        path="/login"
-        element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />}
-      />
-      <Route
-        path="/signup"
-        element={<SignupPage handleSignUpOrLogin={handleSignUpOrLogin} />}
-      />
-      <Route
-        path="/profile/new"
-        element={
-          <NewProfilePage user={user} handleUserUpdate={handleUserUpdate} />
-        }
-      />
-      {/* <Route path="/*" element={<PageNotFound />} /> */}
-      <Route 
-        path='/project' 
-        element={<Project/>}/>
-    </Routes>
-    ) : (
-      <LoadingScreen />
-    )}
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/login"
+          element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />}
+        />
+        <Route
+          path="/signup"
+          element={<SignupPage handleSignUpOrLogin={handleSignUpOrLogin} />}
+        />
+        <Route
+          path="/profile/new"
+          element={
+            <NewProfilePage
+              user={user}
+              handleUserUpdate={handleUserUpdate}
+              handleTeacherProfileUpdate={handleTeacherProfileUpdate}
+            />
+          }
+        />
+        <Route
+          path="/profile/:teacherProfileID"
+          element={<ProfilePage user={user} />}
+        />
+        {/* <Route path="/*" element={<PageNotFound />} /> */}
+        <Route path="/projects" element={<ProjectPage />} />
+      </Routes>
+      <Footer />
     </>
   );
 }
-
