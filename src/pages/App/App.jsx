@@ -11,7 +11,7 @@ import NavBar from '../../components/NavBar/NavBar';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import userService from '../../utils/userService';
-import Project from '../Project/Project';
+import ProjectPage from '../ProjectPage/ProjectPage';
 import './App.css';
 
 export default function App() {
@@ -42,10 +42,9 @@ export default function App() {
     });
   };
 
-
-  const handleProject =()=>{
+  const handleProject = () => {
     setUser(userService.getUser());
-  }
+  };
   return (
     <>
       <NavBar />
@@ -74,7 +73,10 @@ export default function App() {
           element={<ProfilePage user={user} />}
         />
         {/* <Route path="/*" element={<PageNotFound />} /> */}
-        <Route path="/projects" element={<Project handleProject={handleProject} />} />
+        <Route
+          path="/projects"
+          element={<ProjectPage handleProject={handleProject} />}
+        />
       </Routes>
       <Footer />
     </>
