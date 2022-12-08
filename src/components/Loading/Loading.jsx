@@ -9,7 +9,7 @@ export default function Loading({ user }) {
   const navigate = useNavigate();
   const profileID = user.teacherProfile;
   setTimeout(() => {
-    navigate(`/profile/${profileID}`);
+    navigate('/profile');
   }, 3000);
 
   return (

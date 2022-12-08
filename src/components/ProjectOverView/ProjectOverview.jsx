@@ -42,7 +42,10 @@ export default function ProjectOverview({ project, user, formSubmitHandler }) {
               <div className="col-12">
                 <h5>
                   My Wishlist ({project.wishList.length} item
-                  {project.wishList.length > 1 ? 's' : ''})
+                  {project.wishList.length > 1 || project.wishList.length == 0
+                    ? 's'
+                    : ''}
+                  )
                 </h5>
                 <WishListItem wishListItem={project.wishList[0]} />
               </div>
@@ -50,7 +53,8 @@ export default function ProjectOverview({ project, user, formSubmitHandler }) {
             <div className="row">
               <div className="col-12 d-flex justify-content-center mt-5">
                 <Button
-                  variant="success text-white"
+                  variant="secondary text-dark"
+                  className="publish-button"
                   onClick={formSubmitHandler}
                 >
                   Publish Project

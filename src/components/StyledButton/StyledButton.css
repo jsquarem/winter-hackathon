@@ -1,0 +1,27 @@
+.next-page {
+  width: 30px;
+  height: 40px;
+}
+
+.styled-button {
+  background-color: #99cccc;
+  border-color: #2e4052;
+  border-width: medium;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+.next {
+  position: relative;
+  top: -24px;
+  left: 4px;
+  text-align: center;
+}
+
+.arrow-right {
+  color: #2e4052;
+  position: relative;
+  top: -33px;
+  left: 5px;
+}

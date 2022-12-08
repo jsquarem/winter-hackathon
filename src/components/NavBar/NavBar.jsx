@@ -25,9 +25,7 @@ export default function NavBar({ user, handleLogout }) {
             <Nav.Link href="/getstarted">Get Started</Nav.Link>
             {user ? (
               <>
-                <Nav.Link href={`/profile/${user.teacherProfile}`}>
-                  Profile
-                </Nav.Link>
+                <Nav.Link href="/profile">Profile</Nav.Link>
                 <Nav.Link href="/" onClick={handleLogout}>
                   Sign Out
                 </Nav.Link>
