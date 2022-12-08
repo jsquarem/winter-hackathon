@@ -2,27 +2,23 @@ const mongoose = require('mongoose');
 
 const projectSchema = new mongoose.Schema(
   {
-    wishList:{
+    projectTitle: {
       type: String,
-      required: true,
+      required: true
     },
-    projectTitle:{
-      type:String,
-      required:true,
+    projectDescription: {
+      type: String,
+      required: true
     },
-    projectDescription:{
-      type:String,
-      required:true,
+    imageURL: {
+      type: String,
+      required: false
     },
-    addMedia:{
-      type:String,
-      required:true,
+    subjectArea: {
+      type: String,
+      required: true
     },
-    subjectArea:{
-      type:String,
-      required:true,
-    },
-    requests: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Request' }]
+    wishList: []
   },
   {
     timestamps: true
@@ -30,3 +26,5 @@ const projectSchema = new mongoose.Schema(
 );
 
 module.exports = mongoose.model('Project', projectSchema);
+
+// { type: mongoose.Schema.Types.ObjectId, ref: 'WishListItem' }
