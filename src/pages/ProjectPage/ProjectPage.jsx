@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -14,6 +14,7 @@ import projectService from '../../utils/projectService';
 import StyledButton from '../../components/StyledButton/StyledButton';
 
 export default function ProjectPage({ user, handleProject }) {
+  const [projectImage, setProjectImage] = useState(false);
   const [projectProp, setProjectProp] = useState(null);
   const [projectStep, setProjectStep] = useState(1);
   const [addWishListState, setAddWishListState] = useState(false);
@@ -26,6 +27,7 @@ export default function ProjectPage({ user, handleProject }) {
       'https://catcollection7-11.s3.us-east-2.amazonaws.com/classroom3-888x500.png',
     subjectArea: ''
   });
+  const inputRef = useRef(null);
 
   const navigate = useNavigate();
 
@@ -75,10 +77,20 @@ export default function ProjectPage({ user, handleProject }) {
     setProjectProp(projectObject);
     setProjectStep(2);
   };
+
+  const handleImageAdd = () => {
+    console.log('clicked');
+    inputRef.current.click();
+  };
+
+  const handleFileChange = (e) => {
+    e.preventDefault();
+    setProjectImage(true);
+  };
   if (projectStep == 1) {
     return (
       <Container>
-        <div className="col-12 col-md-4 offset-md-4 mb-5 pt-5">
+        <div className="col-12 col-md-4 offset-md-4 mb-3 pt-5">
           <h5>
             My Wishlist ({wishList.length} item
             {wishList.length > 1 || wishList.length == 0 ? 's' : ''})
@@ -130,26 +142,26 @@ export default function ProjectPage({ user, handleProject }) {
                     rows={4}
                   />
                 </Form.Group>
-                {/* <Form.Group className="mb-3" controlId="formAddMedia">
-                  <Form.Label>Add Media</Form.Label>
-                  <div
-                    className="imageURL"
-                    name="imageURL"
-                    value={project.imageURL}
-                    onChange={handleChange}
-                  >
-                    <CircleAddButton url="url" />
-
-                    <br />
-                  </div>
-                </Form.Group>
-                <br /> */}
-
-                {/* <Button variant="success" type="submit">
-            Publish Project 
-          </Button> */}
               </Form>
             </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-12">
+            <input
+              style={{ display: 'none' }}
+              ref={inputRef}
+              type="file"
+              onChange={handleFileChange}
+            />
+            {projectImage ? (
+              <img src="https://catcollection7-11.s3.us-east-2.amazonaws.com/classroom3-888x500.png" />
+            ) : (
+              <>
+                <CircleAddButton handleClick={handleImageAdd} />
+                <p>Add Project Photo</p>
+              </>
+            )}
           </div>
         </div>
         <div className="row mt-3">
