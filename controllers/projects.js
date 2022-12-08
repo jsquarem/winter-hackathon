@@ -1,9 +1,12 @@
 const Project = require('../models/project');
 const WishListItem = require('../models/wishListItem');
+const TeacherProfile = require('../models/teacherProfile');
+const User = require('../models/user');
 
 const create = async (req, res) => {
   console.log(req.body, ' req.body in create Project');
-  const projectObject = req.body;
+  const projectObject = req.body.projectObject;
+  const userEmail = req.body.userEmail;
   const wishListItem = projectObject.wishList[0].result[0];
   const wishListTitle = wishListItem.title;
   const wishListPrice = wishListItem.price.current_price;
@@ -17,15 +20,25 @@ const create = async (req, res) => {
     productURL: wishListProductURL,
     imageURL: wishListImageURL
   };
-  console.log(wishListObject, '<-wishListObject');
   const wishListDocument = new WishListItem(wishListObject);
   wishListDocument.save();
-  console.log('wishlist success');
-  const existingWishList = projectObject.wishList;
+
   projectObject.wishList = [wishListDocument._id];
-  console.log(wishListDocument, '<-wishListDocument');
   const projectDocument = new Project(projectObject);
-  console.log(projectDocument, '<-project in create');
+  const projectID = projectDocument._id;
+
+  const userDocument = await User.findOne({ email: userEmail });
+  console.log(userDocument, '<-userDocument');
+  const teacherProfileID = userDocument.teacherProfile;
+  console.log(teacherProfileID, '<-teacherProfileID');
+  const teacherProfileDocument = await TeacherProfile.findOne({
+    _id: teacherProfileID
+  });
+
+  // const existingProjects = teacherProfileDocument.projects.;
+  // existingProjects.push(projectID);
+  teacherProfileDocument.projects.push(projectID);
+  teacherProfileDocument.save();
 
   try {
     await projectDocument.save();

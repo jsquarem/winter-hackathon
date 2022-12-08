@@ -51,7 +51,11 @@ export default function ProjectPage({ user, handleProject }) {
       ...project,
       wishList: wishList
     };
-    const projectDocument = await projectService.create(projectObject);
+    const userEmail = user.email;
+    const projectDocument = await projectService.create({
+      projectObject,
+      userEmail
+    });
     console.log(projectDocument, '<-projectDocument');
   };
 
