@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -13,11 +13,12 @@ import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import userService from '../../utils/userService';
 import Project from '../Project/Project';
+import LoadingScreen from '../../components/Loading/Loading'
 import './App.css';
 
 
 export default function App() {
-
+  const [loading, setLoading] = useState(true)
 
   const [user, setUser] = useState(userService.getUser());
   console.log(user, '<-user in app');
@@ -39,7 +40,13 @@ export default function App() {
     });
   };
 
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 6000)
+  }, [])
+
   return (
+    <>
+    { loading === false ? (
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/getstarted" element={<GetStarted />} />
@@ -62,11 +69,10 @@ export default function App() {
         path='/project' 
         element={<Project/>}/>
     </Routes>
+    ) : (
+      <LoadingScreen />
+    )}
+    </>
   );
 }
-  const handleTeacherProfileUpdate = (updatedTeacherProfile) => {
-    setUser({
-      ...user,
-      teacherProfile: updatedTeacherProfile
-    });
-  };
+
