@@ -7,6 +7,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import StyledButton from '../../components/StyledButton/StyledButton';
+import BreadCrumb from '../../components/BreadCrumb/BreadCrumb';
 import './SignupPage.css';
 
 export default function SignupPage({ handleSignUpOrLogin }) {
@@ -59,7 +60,7 @@ export default function SignupPage({ handleSignUpOrLogin }) {
 
   return (
     <Container>
-      <div className="col-12 col-md-4 offset-md-4 mb-5 pt-5">
+      <div className="col-12 col-md-4 offset-md-4 mb-5 pt-3">
         <div className="row">
           <div className="col-12 text-center">
             <h2 className="text-center mb-4">Join Our Community</h2>

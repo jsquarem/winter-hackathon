@@ -22,10 +22,6 @@ const schoolSchema = new mongoose.Schema(
     state: {
       type: String,
       required: true
-    },
-    phone: {
-      type: String,
-      required: false
     }
   },
   {

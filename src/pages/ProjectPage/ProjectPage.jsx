@@ -12,6 +12,7 @@ import WishListItem from '../../components/WishListItem/WishListItem';
 import ProjectOverview from '../../components/ProjectOverView/ProjectOverview';
 import projectService from '../../utils/projectService';
 import StyledButton from '../../components/StyledButton/StyledButton';
+import BreadCrumb from '../../components/BreadCrumb/BreadCrumb';
 
 export default function ProjectPage({ user, handleProject }) {
   const [projectImage, setProjectImage] = useState(false);
@@ -90,6 +91,7 @@ export default function ProjectPage({ user, handleProject }) {
   if (projectStep == 1) {
     return (
       <Container>
+        <BreadCrumb step={3} />
         <div className="col-12 col-md-4 offset-md-4 mb-3 pt-5">
           <h5>
             My Wishlist ({wishList.length} item

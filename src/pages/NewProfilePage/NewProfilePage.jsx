@@ -10,6 +10,7 @@ import userService from '../../utils/userService';
 import teacherService from '../../utils/teacherService';
 import schoolService from '../../utils/schoolService';
 import StyledButton from '../../components/StyledButton/StyledButton';
+import BreadCrumb from '../../components/BreadCrumb/BreadCrumb';
 import './NewProfilePage.css';
 
 export default function NewProfilePage({
@@ -43,12 +44,10 @@ export default function NewProfilePage({
     address2: '',
     city: '',
     zipcode: '',
-    state: '',
-    phone: ''
+    state: ''
   });
   const [teacherProfileState, setTeacherProfileState] = useState({
     schoolEmail: '',
-    phone: '',
     bio: '',
     school: '',
     userEmail: user.email
@@ -142,6 +141,7 @@ export default function NewProfilePage({
   if (step == 1) {
     return (
       <Container>
+        <BreadCrumb step={0} />
         <div className="row mt-5">
           <div className="row">
             <div className="col-12">
@@ -254,16 +254,6 @@ export default function NewProfilePage({
                           required
                         />
                       </Form.Group>
-                      <Form.Group className="mb-3" controlId="formPhon">
-                        <Form.Label>Phone</Form.Label>
-                        <Form.Control
-                          type="text"
-                          placeholder="1 (555) 555-1234"
-                          name="phone"
-                          value={teacherProfileState.phone}
-                          onChange={handleTeacherProfileChange}
-                        />
-                      </Form.Group>
                       <Form.Group className="mb-3" controlId="formBio">
                         <Form.Label>Bio</Form.Label>
                         <Form.Control
@@ -307,6 +297,7 @@ export default function NewProfilePage({
   if (step == 2) {
     return (
       <Container>
+        <BreadCrumb step={1} />
         <div className="row">
           <div className="col-12">
             <div className="col-6 offset-3 rounded">
@@ -468,22 +459,6 @@ export default function NewProfilePage({
                           />
                         </Form.Group>
                       </div>
-                    </div>
-                    <div className="col-12">
-                      <Form.Group className="mb-3" controlId="formSchoolPhone">
-                        <Form.Label>
-                          Phone Number<sup>*</sup>
-                        </Form.Label>
-                        <Form.Control
-                          type="text"
-                          placeholder=""
-                          name="phone"
-                          value={schoolState.phone}
-                          onChange={handleSchoolChange}
-                          required
-                        />
-                      </Form.Group>
-                      <p>* denotes required field</p>
                     </div>
                     <div className="row">
                       <div className="d-grid col-12 mx-auto">
