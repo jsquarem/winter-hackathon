@@ -56,9 +56,6 @@ export default function ProfilePage({ user }) {
   return (
     <Container>
       <BreadCrumb step={2} />
-      <div className="row">
-        <div className="col-12 text-center">Breadcrumb</div>
-      </div>
       <div className="row mt-3">
         <div className="col-6">
           <img
