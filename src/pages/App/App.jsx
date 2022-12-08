@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import HomePage from '../HomePage/HomePage';
-import GetStarted from '../GetStarted/GetStarted';
+import GetStarted from '../GetStarted/GetStarted.jsx';
 import LoginPage from '../LoginPage/LoginPage';
 import SignupPage from '../SignupPage/SignupPage';
 import NewProfilePage from '../NewProfilePage/NewProfilePage';

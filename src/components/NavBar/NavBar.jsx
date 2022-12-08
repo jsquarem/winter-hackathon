@@ -23,6 +23,7 @@ export default function NavBar() {
             <Nav.Link href="/signup">Sign Up</Nav.Link>
             <Nav.Link href="/login">Login</Nav.Link>
             <Nav.Link href="/getstarted">Get Started</Nav.Link>
+            <Nav.Link href="/profile">Profile</Nav.Link>
           </Nav>
           <Form className="d-flex">
             <Form.Control
