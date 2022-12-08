@@ -9,6 +9,7 @@ import SignupPage from '../SignupPage/SignupPage';
 import NewProfilePage from '../NewProfilePage/NewProfilePage';
 import userService from '../../utils/userService';
 import Project from '../Project/Project';
+import GetStarted from '../GetStarted/GetStarted';
 
 function App() {
   const [user, setUser] = useState(userService.getUser());
@@ -35,6 +36,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route path="/getstarted" element={<GetStarted />} />
       <Route
         path="/login"
         element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />}
