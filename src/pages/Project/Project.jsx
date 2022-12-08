@@ -6,7 +6,7 @@ import Card from 'react-bootstrap/Card';
 import './project.css'
 import { Link } from 'react-router-dom';
 import CircleAddButton from '../../components/CircleAddButton/CircleAddButton';
-import {useForm} from 'react-hook-form'
+// import {useForm} from 'react-hook-form'
 
 
 export default function Project({handleProject}) {
@@ -18,17 +18,17 @@ export default function Project({handleProject}) {
         subjectArea:'',
     })
 
-    const {register} = useForm()
+    // const {register} = useForm()
 
-    const onSubmit = async (data) =>{
-      const formData = new FormData();
-      formData.append ("file", data.file[0])
-      const res = await fetch("http://localhost:3000/upload-file", {
-        method: "POST",
-        body: formData,
-      }).then ((res) => res.json())
-      alert(JSON.stringify(`${res.message}, status:$ {res.status}`))
-    }
+    // const onSubmit = async (data) =>{
+    //   const formData = new FormData();
+    //   formData.append ("file", data.file[0])
+    //   const res = await fetch("http://localhost:3000/upload-file", {
+    //     method: "POST",
+    //     body: formData,
+    //   }).then ((res) => res.json())
+    //   alert(JSON.stringify(`${res.message}, status:$ {res.status}`))
+    // }
 
     function handleChange(e) {
       setProject({
@@ -48,7 +48,7 @@ export default function Project({handleProject}) {
         <h1 className="text-center mt-5">Projects</h1>
         <Card>
           <Card.Body>
-        <Form onSubmit={formSubmitHandler(onSubmit)}> 
+        <Form onSubmit={formSubmitHandler}> 
         <Form.Group className="mb-4" controlId="formWishList">
             <Form.Label>My Wishlist </Form.Label>
             <div 
