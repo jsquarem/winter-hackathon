@@ -14,17 +14,13 @@ const projectSchema = new mongoose.Schema(
       type:String,
       required:true,
     },
-    addMedia:{
+    imageURL:{
       type:String,
       required:true,
     },
     subjectArea:{
       type:String,
       required:true,
-    },
-    dateEnds: {
-      type: Date,
-      required: true
     },
     requests: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Request' }]
   },

@@ -2,16 +2,23 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import './App.css';
 import HomePage from '../HomePage/HomePage';
+import GetStarted from '../GetStarted/GetStarted.jsx';
 import LoginPage from '../LoginPage/LoginPage';
 import SignupPage from '../SignupPage/SignupPage';
 import NewProfilePage from '../NewProfilePage/NewProfilePage';
+import ProfilePage from '../ProfilePage/ProfilePage';
+import NavBar from '../../components/NavBar/NavBar';
+import Header from '../../components/Header/Header';
+import Footer from '../../components/Footer/Footer';
 import userService from '../../utils/userService';
 import Project from '../Project/Project';
-import GetStarted from '../GetStarted/GetStarted';
+import './App.css';
 
-function App() {
+
+export default function App() {
+
+
   const [user, setUser] = useState(userService.getUser());
   console.log(user, '<-user in app');
 
@@ -28,8 +35,7 @@ function App() {
     setUser({
       ...user,
       firstName: updatedUser.firstName,
-      lastName: updatedUser.lastName,
-      teacherProfile: updatedUser.teacherProfile
+      lastName: updatedUser.lastName
     });
   };
 
@@ -58,5 +64,9 @@ function App() {
     </Routes>
   );
 }
-
-export default App;
+  const handleTeacherProfileUpdate = (updatedTeacherProfile) => {
+    setUser({
+      ...user,
+      teacherProfile: updatedTeacherProfile
+    });
+  };

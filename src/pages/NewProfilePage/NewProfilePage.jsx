@@ -10,7 +10,11 @@ import userService from '../../utils/userService';
 import teacherService from '../../utils/teacherService';
 import schoolService from '../../utils/schoolService';
 
-export default function NewProfilePage({ user, handleUserUpdate }) {
+export default function NewProfilePage({
+  user,
+  handleUserUpdate,
+  handleTeacherProfileUpdate
+}) {
   const [step, setStep] = useState(1);
   console.log(step, '<-step');
   const [error, setError] = useState({
@@ -46,6 +50,7 @@ export default function NewProfilePage({ user, handleUserUpdate }) {
     userEmail: user.email
   });
   const [openSchoolForm, setOpenSchoolForm] = useState(false);
+  const navigate = useNavigate();
 
   const handleUserChange = (e) => {
     setUserState({
@@ -115,7 +120,8 @@ export default function NewProfilePage({ user, handleUserUpdate }) {
     e.preventDefault();
     console.log(teacherProfileState, '<-teacherProfileState');
     const teacherProfile = await teacherService.create(teacherProfileState);
-    handleUserUpdate(teacherProfile);
+    handleTeacherProfileUpdate(teacherProfile);
+    navigate(`/profile/${teacherProfile._id}`);
     console.log(teacherProfile, '<-teacherProfile');
   };
 

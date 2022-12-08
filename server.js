@@ -16,6 +16,12 @@ const app = express();
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
+app.use(express.urlencoded({extended: true}))
+app.use(
+  fileUpload({
+    createParentPath:true,
+  })
+)
 
 app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'build'))); // this allows express to find the build folder
@@ -28,12 +34,43 @@ app.use('/api/products', require('./routes/api/products'));
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/teachers', require('./routes/api/teachers'));
 app.use('/api/schools', require('./routes/api/schools'));
-
+app.use('/api/projects', require('./routes/api/projects'));
 
 // "catch all" route
 app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
+
+
+app.post("/upload-file", async(req, res)=>{
+  try{
+    if(!req.files){
+      res.send({
+        status: "failed",
+        message: "No file uploaded"
+      })
+
+    }
+    else {
+      let file = req.files.file;
+      console.log(req.files)
+     
+      file.mv ("./uploads/" + file.name)
+      res.send ({
+        status: "success",
+        message: "File is uploaded",
+        data: {
+          name: file.name,
+          mimetype: file.mimetype,
+          size: file.size,
+        },
+      })
+    }
+  }
+  catch (err){
+    res.status(500).send(err)
+  }
+})
 
 const port = process.env.PORT || 3001;
 

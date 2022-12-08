@@ -13,7 +13,8 @@ function signup(user) {
   })
     .then((res) => {
       if (res.ok) return res.json();
-      throw new Error('Email already taken!');
+      console.log(res);
+      //throw new Error('Email already taken!');
     })
     .then(({ token }) => tokenService.setToken(token));
 }
@@ -35,6 +36,7 @@ function login(creds) {
     .then((res) => {
       // Valid login if we have a status of 2xx (res.ok)
       if (res.ok) return res.json();
+      console.log(res);
       return res.json().then((response) => {
         console.log(response);
         throw new Error(response.err);
