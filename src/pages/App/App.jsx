@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import HomePage from '../HomePage/HomePage';
+import GetStarted from '../GetStarted/GetStarted.jsx';
 import LoginPage from '../LoginPage/LoginPage';
 import SignupPage from '../SignupPage/SignupPage';
 import NewProfilePage from '../NewProfilePage/NewProfilePage';
@@ -12,9 +13,12 @@ import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import userService from '../../utils/userService';
 import ProjectPage from '../ProjectPage/ProjectPage';
+import LoadingScreen from '../../components/Loading/Loading';
 import './App.css';
 
 export default function App() {
+  const [loading, setLoading] = useState(true);
+
   const [user, setUser] = useState(userService.getUser());
   console.log(user, '<-user in app');
 
@@ -42,9 +46,6 @@ export default function App() {
     });
   };
 
-  const handleProject = () => {
-    setUser(userService.getUser());
-  };
   return (
     <>
       <NavBar />
@@ -73,10 +74,7 @@ export default function App() {
           element={<ProfilePage user={user} />}
         />
         {/* <Route path="/*" element={<PageNotFound />} /> */}
-        <Route
-          path="/projects"
-          element={<ProjectPage user={user} handleProject={handleProject} />}
-        />
+        <Route path="/projects" element={<ProjectPage />} />
       </Routes>
       <Footer />
     </>

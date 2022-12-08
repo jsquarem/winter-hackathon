@@ -5,13 +5,13 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import './NavBar.css'
+import './navbar.css'
 
 export default function NavBar() {
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
-        <Navbar.Brand href="/"><img src="https://catcollection7-11.s3.us-east-2.amazonaws.com/teachaid-logo-dark.png"/></Navbar.Brand>
+        <Navbar.Brand href="/"><img src="https://catcollection7-11.s3.us-east-2.amazonaws.com/teachaid-logo-dark.png" /></Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
