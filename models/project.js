@@ -14,7 +14,7 @@ const projectSchema = new mongoose.Schema(
       type:String,
       required:true,
     },
-    addMedia:{
+    imageURL:{
       type:String,
       required:true,
     },

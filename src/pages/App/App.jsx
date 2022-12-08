@@ -42,6 +42,10 @@ export default function App() {
     });
   };
 
+
+  const handleProject =()=>{
+    setUser(userService.getUser());
+  }
   return (
     <>
       <NavBar />
@@ -70,7 +74,7 @@ export default function App() {
           element={<ProfilePage user={user} />}
         />
         {/* <Route path="/*" element={<PageNotFound />} /> */}
-        <Route path="/projects" element={<Project />} />
+        <Route path="/projects" element={<Project handleProject={handleProject} />} />
       </Routes>
       <Footer />
     </>
