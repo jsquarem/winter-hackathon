@@ -1,0 +1,15 @@
+.footernav {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+img {
+    width: 160px;
+}
+
+.me-auto {
+    font-size: large;
+    display:flex;
+    margin-left: 60px;
+}
