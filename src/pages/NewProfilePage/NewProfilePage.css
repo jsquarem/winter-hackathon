@@ -1,0 +1,28 @@
+.profile-card {
+  background-color: #ffc857;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3), 3px 3px 4px rgba(0, 0, 0, 0.3),
+    -1px -1px 30px rgba(0, 0, 0, 0.2);
+}
+.profile-card button {
+  background-color: #2e4052 !important;
+}
+
+.profile-card button:hover {
+  background-color: #40586f !important;
+}
+
+.profile-2-image {
+  position: relative;
+  top: 40px;
+}
+
+.profile-1-image {
+  position: relative;
+  top: 20px;
+}
+
+.profile-card {
+  background-color: #ffc857;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3), 3px 3px 4px rgba(0, 0, 0, 0.3),
+    -1px -1px 30px rgba(0, 0, 0, 0.2);
+}

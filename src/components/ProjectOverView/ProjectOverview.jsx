@@ -1,39 +1,69 @@
 import React from 'react';
-import Project from './Project';
+import Button from 'react-bootstrap/Button';
+import WishListItem from '../WishListItem/WishListItem';
+import Container from 'react-bootstrap/Container';
 import './ProjectOverview.css';
 
-const sampleProject = {
-  projectTitle: "Bring Some Magic To This Muggle Class",
-  projectDescription: "Harry, who had been silent for the entirety of the conversation, choosing instead to use his Auror Spidey-senses to acutely observe the interaction, finally spoke up.",
-  projectSchool: "Ghenghis Khan Elementary",
-  projectWishList: "test wishlist"
-}
+export default function ProjectOverview({ project, user, formSubmitHandler }) {
+  console.log(user, '<-user in overview');
+  console.log(project, '<-project in overview');
+  // const project = {
+  //   title: 'Bring Some Magic To This Muggle Class',
+  //   description:
+  //     'Harry, who had been silent for the entirety of the conversation, choosing instead to use his Auror Spidey-senses to acutely observe the interaction, finally spoke up.',
+  //   school: 'Ghenghis Khan Elementary',
+  //   wishList: []
+  // };
 
-export default function ProjectOverview() {
   return (
-    <div class="project-overview">
-    <div id="proj-1">
-    <h6>Project Title</h6>
-    <p>{sampleProject.projectTitle}</p>
-    </div>
-
-    <div id="proj-2">
-    <h6>Project Description</h6>
-    <p>{sampleProject.description}</p>
-    </div>
-
-    <div id="proj-3">
-    <h6>School</h6>
-    <p>{sampleProject.school}</p>
-    </div>
-
-    <div id="proj-4">
-    <h6>My Wishlist</h6>
-    <p id="wish-item">{sampleProject.projectWishList}</p>
-    </div>
-    <button type="button" className="publish-btn"></button>
-
-    
-    </div>
-  )
+    <Container>
+      <div className="row">
+        <div className="col-12">
+          <div className="project-overview">
+            <div className="row mt-5">
+              <div className="col-12">
+                <h4>Project Title</h4>
+                <p>{project.projectTitle}</p>
+              </div>
+            </div>
+            <div className="row mt-3">
+              <div className="col-12">
+                <h5>Project Description</h5>
+                <p>{project.projectDescription}</p>
+              </div>
+            </div>
+            <div className="row mt-3">
+              <div className="col-12">
+                <h5>School</h5>
+                <p>The school</p>
+              </div>
+            </div>
+            <div className="row mt-3">
+              <div className="col-12">
+                <h5>
+                  My Wishlist ({project.wishList.length} item
+                  {project.wishList.length > 1 || project.wishList.length == 0
+                    ? 's'
+                    : ''}
+                  )
+                </h5>
+                <WishListItem wishListItem={project.wishList[0]} />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-12 d-flex justify-content-center mt-5">
+                <Button
+                  variant="secondary text-dark"
+                  className="publish-button"
+                  onClick={formSubmitHandler}
+                >
+                  Publish Project
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  );
 }

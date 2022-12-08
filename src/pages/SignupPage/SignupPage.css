@@ -1,0 +1,10 @@
+.sign-up-card {
+  background-color: #ffc857;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3), 3px 3px 4px rgba(0, 0, 0, 0.3),
+    -1px -1px 30px rgba(0, 0, 0, 0.2);
+}
+
+.next-button {
+  border: none;
+  background-color: white;
+}
