@@ -4,6 +4,7 @@ import teacherService from '../../utils/teacherService';
 import Container from 'react-bootstrap/Container';
 import CircleAddButton from '../../components/CircleAddButton/CircleAddButton';
 import ProjectThumbNail from '../../components/ProjectThumbNail/ProjectThumbNail';
+import BreadCrumb from '../../components/BreadCrumb/BreadCrumb';
 import './ProfilePage.css';
 
 export default function ProfilePage({ user }) {
@@ -54,6 +55,7 @@ export default function ProfilePage({ user }) {
 
   return (
     <Container>
+      <BreadCrumb step={2} />
       <div className="row">
         <div className="col-12 text-center">Breadcrumb</div>
       </div>
