@@ -9,7 +9,7 @@ import './NavBar.css';
 
 export default function NavBar({ user, handleLogout }) {
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar className="headernav" bg="light" expand="lg">
       <Container fluid>
         <Navbar.Brand href="/">
           <img src="https://catcollection7-11.s3.us-east-2.amazonaws.com/teachaid-logo-dark.png" />
