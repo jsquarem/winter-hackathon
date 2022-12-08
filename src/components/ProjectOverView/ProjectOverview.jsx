@@ -17,7 +17,7 @@ export default function ProjectOverview({ project, user, formSubmitHandler }) {
 
   return (
     <Container>
-      <div className="row">
+      <div className="row mt-5">
         <div className="col-12">
           <div className="project-overview">
             <div className="row mt-5">

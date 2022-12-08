@@ -20,7 +20,7 @@ export default function HomePage() {
   // }, []);
 
   return (
-    <div>
+    <div className="mt-5">
       <div className="circle"></div>
       <div className="circle2"></div>
       <div className="text">

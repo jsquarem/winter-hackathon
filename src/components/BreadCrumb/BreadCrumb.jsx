@@ -8,8 +8,8 @@ export default function BreadCrumb({ step }) {
     'https://catcollection7-11.s3.us-east-2.amazonaws.com/BreadcrumbProject.png'
   ];
   return (
-    <div className="row">
-      <div className="col-12 text-center pt-3">
+    <div className="row mt-5">
+      <div className="col-12 text-center mt-5 pt-3">
         <img src={imageArray[step]} style={{ width: '70%' }} />
       </div>
     </div>

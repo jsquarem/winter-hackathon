@@ -61,8 +61,8 @@ export default function SignupPage({ handleSignUpOrLogin }) {
   return (
     <Container>
       <div className="col-12 col-md-4 offset-md-4 mb-5 pt-3">
-        <div className="row">
-          <div className="col-12 text-center">
+        <div className="row mt-5">
+          <div className="col-12 mt-5 text-center">
             <h2 className="text-center mb-4">Join Our Community</h2>
             <img
               src="https://catcollection7-11.s3.us-east-2.amazonaws.com/signup-image.png"
