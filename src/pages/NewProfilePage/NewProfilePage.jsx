@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import SuccessMessage from '../../components/SuccessMessage/SuccessMessage';
 import { Link, useNavigate } from 'react-router-dom';
@@ -17,6 +17,8 @@ export default function NewProfilePage({
   handleUserUpdate,
   handleTeacherProfileUpdate
 }) {
+  const [profileImage, setProfileImage] = useState(false);
+  const inputRef = useRef(null);
   const [step, setStep] = useState(1);
   console.log(step, '<-step');
   const [error, setError] = useState({
@@ -127,12 +129,61 @@ export default function NewProfilePage({
     console.log(teacherProfile, '<-teacherProfile');
   };
 
+  const handleImageAdd = () => {
+    console.log('clicked');
+    inputRef.current.click();
+  };
+
+  const handleFileChange = (e) => {
+    e.preventDefault();
+    setProfileImage(true);
+  };
+
   if (step == 1) {
     return (
       <Container>
         <div className="row mt-5">
-          <div className="col-12 profile-card rounded mt-5 p-3">
-            <div className="row">
+          <div className="row">
+            <div className="col-12">
+              <div className="row">
+                <div className="col-6">
+                  <input
+                    style={{ display: 'none' }}
+                    ref={inputRef}
+                    type="file"
+                    onChange={handleFileChange}
+                  />
+                  {profileImage ? (
+                    <img
+                      className="profile-1-image"
+                      src="https://catcollection7-11.s3.us-east-2.amazonaws.com/teacher.png"
+                    />
+                  ) : (
+                    <img
+                      className="profile-1-image"
+                      onClick={handleImageAdd}
+                      src="https://catcollection7-11.s3.us-east-2.amazonaws.com/profile-step-1-image.png"
+                    />
+                  )}
+                </div>
+                <div className="col-6 mt-5">
+                  {profileImage ? (
+                    <>
+                      <h5>Nice picture!</h5>
+                      <p>You're really going to stand out with this one</p>
+                    </>
+                  ) : (
+                    <>
+                      <h5>Add a profile photo</h5>
+                      <p>Make your project more compelling with an image</p>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="col-12 profile-card rounded p-3">
+            <div className="row mt-3">
               <div className="col-12 col-md-4 offset-md-4">
                 <Form className="form" onSubmit={handleNameSubmit}>
                   <div className="row">
