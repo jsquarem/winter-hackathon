@@ -1,7 +1,13 @@
 import React from 'react';
 import Project from './Project';
-import sampleProject from './sampleProject';
 import './ProjectOverview.css';
+
+const sampleProject = {
+  projectTitle: "Bring Some Magic To This Muggle Class",
+  projectDescription: "Harry, who had been silent for the entirety of the conversation, choosing instead to use his Auror Spidey-senses to acutely observe the interaction, finally spoke up.",
+  projectSchool: "Ghenghis Khan Elementary",
+  projectWishList: "test wishlist"
+}
 
 export default function ProjectOverview() {
   return (
