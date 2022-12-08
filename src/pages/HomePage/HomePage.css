@@ -7,10 +7,12 @@
     margin-top: 10px;
     display:flex;
     flex-direction: column;
+    font-weight: 600;
 }
 
 .link {
     color:black;
+    font-weight: 600;
 }
 
 .circle {
@@ -20,7 +22,7 @@
   height: 150px;
   width: 150px;
   border-radius: 50%;
-  background-color: #ed7b7b;
+  background-color: #FF6666;
 }
 
 .circle2 {
@@ -29,7 +31,7 @@
   height: 200px;
   width: 200px;
   border-radius: 50%;
-  background-color: #b1f1d4;
+  background-color: #BDD9BF;
 }
 
 .circle3 {
@@ -38,7 +40,7 @@
   height: 200px;
   width: 200px;
   border-radius: 50%;
-  background-color: #222445;
+  background-color: #2E4052;
 }
 
 .circle4 {
@@ -46,7 +48,7 @@
   height: 200px;
   width: 200px;
   border-radius: 50%;
-  background-color: #cec96f;
+  background-color: #FFC857;
 }
 
 h1 {

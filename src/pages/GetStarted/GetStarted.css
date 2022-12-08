@@ -15,17 +15,18 @@ ol {
 }
 
 li {
-    color: #ed7b7b;
+    color: #FF6666;
 }
 
 .center {
     display:flex;
     justify-content: space-evenly;
-    margin-left: -80px;
+    margin-left: -150px;
 }
 
-.mb-2 {
+.mb-23 {
     margin-top: 40px;
+    margin-left: -50px;
 }
 
 .circle5 {
@@ -34,7 +35,7 @@ li {
   height: 150px;
   width: 150px;
   border-radius: 50%;
-  background-color: #9de5c9;
+  background-color: #99CCCC;
 }
 
 .circle6 {
@@ -43,7 +44,7 @@ li {
   height: 300px;
   width: 300px;
   border-radius: 50%;
-  background-color: #cec96f;
+  background-color: #FFC857;
 }
 
 .circle7 {
@@ -51,7 +52,7 @@ li {
   height: 100px;
   width: 100px;
   border-radius: 50%;
-  background-color: #ed7b7b;
+  background-color: #FF6666;
 }
 
 .text2 {

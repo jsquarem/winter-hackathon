@@ -30,12 +30,12 @@ export default function HomePage() {
         </div>
         <div className="circle3"></div>
           <div className="mb-2">
-            <Button variant="primary" size="lg">
+            <Button variant="info" size="lg">
               Browse Projects
-            </Button>{' '}
-            <Button className="link" variant="link" size="lg">
+            </Button>
+            <Button href="/project" className="link" variant="link" size="lg">
               Create a Project
-            </Button>{' '}
+            </Button>
         <div className="circle4"></div>
           </div>
     </div>

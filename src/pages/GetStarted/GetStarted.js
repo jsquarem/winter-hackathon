@@ -17,8 +17,8 @@ function GetStarted() {
           </div>
           <div className="center">
           <div className="circle7"></div>
-          <div className="mb-2">
-              <Button variant="primary" size="lg">
+          <div className="mb-23">
+              <Button variant="info" size="lg">
                   Get Started
               </Button>{' '}
           </div>
