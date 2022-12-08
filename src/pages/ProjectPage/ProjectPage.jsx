@@ -11,6 +11,7 @@ import WishListForm from '../../components/WishListForm/WishListForm';
 import WishListItem from '../../components/WishListItem/WishListItem';
 import ProjectOverview from '../../components/ProjectOverView/ProjectOverview';
 import projectService from '../../utils/projectService';
+import StyledButton from '../../components/StyledButton/StyledButton';
 
 export default function ProjectPage({ user, handleProject }) {
   const [projectProp, setProjectProp] = useState(null);
@@ -78,28 +79,34 @@ export default function ProjectPage({ user, handleProject }) {
     return (
       <Container>
         <div className="col-12 col-md-4 offset-md-4 mb-5 pt-5">
-          <h1 className="text-center mt-5">Projects</h1>
-          <Card>
-            <Card.Body>
-              <h5>My Wishlist </h5>
-              <div className="row">
-                <div className="col-12">
-                  {wishList.length > 0 ? (
-                    <WishListItem wishListItem={wishList[0]} />
-                  ) : addWishListState ? (
-                    <WishListForm
-                      addWishListItem={addWishListItem}
-                      setAddWishListState={setAddWishListState}
-                    />
-                  ) : (
-                    <CircleAddButton handleClick={handleClick} />
-                  )}
-                </div>
-              </div>
+          <h5>
+            My Wishlist ({wishList.length} item
+            {wishList.length > 1 || wishList.length == 0 ? 's' : ''})
+          </h5>
+          <div className="row">
+            <div className="col-12">
+              {wishList.length > 0 ? (
+                <WishListItem wishListItem={wishList[0]} />
+              ) : addWishListState ? (
+                <WishListForm
+                  addWishListItem={addWishListItem}
+                  setAddWishListState={setAddWishListState}
+                />
+              ) : (
+                <>
+                  <CircleAddButton handleClick={handleClick} />
+                  <p className="ms-2">Add a project </p>
+                </>
+              )}
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-12 mt-3 project-card rounded">
               <Form onSubmit={formSubmitHandler}>
-                <Form.Group className="mb-4" controlId="formWishList">
-                  <p>Add a project </p>
-                </Form.Group>
+                <Form.Group
+                  className="mb-4"
+                  controlId="formWishList"
+                ></Form.Group>
                 <Form.Group className="mb-4" controlId="formProjectTitle">
                   <Form.Label>Project Title</Form.Label>
                   <Form.Control
@@ -123,7 +130,7 @@ export default function ProjectPage({ user, handleProject }) {
                     rows={4}
                   />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formAddMedia">
+                {/* <Form.Group className="mb-3" controlId="formAddMedia">
                   <Form.Label>Add Media</Form.Label>
                   <div
                     className="imageURL"
@@ -136,24 +143,25 @@ export default function ProjectPage({ user, handleProject }) {
                     <br />
                   </div>
                 </Form.Group>
-                <br />
+                <br /> */}
 
                 {/* <Button variant="success" type="submit">
             Publish Project 
           </Button> */}
               </Form>
-              <div className="row">
-                <div className="d-grid col-2 mx-auto end">
-                  <Button
-                    variant="success text-white"
-                    onClick={handleProjectNextStep}
-                  >
-                    {'Next'}
-                  </Button>
-                </div>
-              </div>
-            </Card.Body>
-          </Card>
+            </div>
+          </div>
+        </div>
+        <div className="row mt-3">
+          <div className="col-12 d-flex justify-content-end">
+            <button
+              type="submit"
+              className="next-button"
+              onClick={handleProjectNextStep}
+            >
+              <StyledButton />
+            </button>
+          </div>
         </div>
       </Container>
     );

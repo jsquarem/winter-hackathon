@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import * as productAPI from '../../utils/productAPI';
+import { ArrowRight } from 'react-bootstrap-icons';
 
 import './WishListForm.css';
 
@@ -26,17 +27,18 @@ export default function WishListForm({ addWishListItem, setAddWishListState }) {
   };
   return (
     <div className="row">
-      <div className="col-12">
+      <div className="col-12 rounded wishlist-card pt-2">
         <Form className="form">
-          <InputGroup className="mb-3">
+          <Form.Label>Enter Amazon URL</Form.Label>
+          <InputGroup className="mb-3 bg-white rounded">
             <Form.Control
-              placeholder="Amazon URL"
+              placeholder=""
               onChange={handleChange}
               value={amazonURL.url}
               name="url"
             />
-            <Button variant="outline-secondary" onClick={handleSubmit}>
-              Button
+            <Button variant="outline-dark" onClick={handleSubmit}>
+              <ArrowRight className="fw-bold" />
             </Button>
           </InputGroup>
         </Form>

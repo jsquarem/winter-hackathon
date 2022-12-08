@@ -1,10 +1,14 @@
-.addMedia{
-   color: gray;
+.addMedia {
+  color: gray;
 }
-.addMedia Button{
-    height: 100px;
-    width: 30%;
-    border-radius: 50%;
-    font-size: 50px;
-    border-color: green;
+.addMedia Button {
+  height: 100px;
+  width: 30%;
+  border-radius: 50%;
+  font-size: 50px;
+  border-color: green;
+}
+
+.project-card {
+  background-color: #ffc857;
 }
