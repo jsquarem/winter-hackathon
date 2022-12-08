@@ -1,18 +1,28 @@
 const mongoose = require('mongoose');
 
-const requestSchema = new mongoose.Schema(
+const wishListItemSchema = new mongoose.Schema(
   {
-    productName: {
+    title: {
       type: String,
       required: true,
       unique: false
     },
-    productPrice: {
+    price: {
       type: Number,
       required: true,
       unique: false
     },
+    description: {
+      type: String,
+      required: true,
+      unique: false
+    },
     productURL: {
+      type: String,
+      required: true,
+      unique: false
+    },
+    imageURL: {
       type: String,
       required: true,
       unique: false
@@ -35,4 +45,4 @@ const requestSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model('Request', requestSchema);
+module.exports = mongoose.model('WishListItem', wishListItemSchema);

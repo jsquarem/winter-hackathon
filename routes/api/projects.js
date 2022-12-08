@@ -4,7 +4,7 @@ const router = express.Router();
 const projectsController = require('../../controllers/projects');
 
 /*---------- Public Routes ----------*/
-router.post('/createProject', projectsController.createProject);
+router.post('/create', projectsController.create);
 
 /*---------- Protected Routes ----------*/
 

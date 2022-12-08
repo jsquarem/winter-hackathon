@@ -1,12 +1,38 @@
 const Project = require('../models/project');
+const WishListItem = require('../models/wishListItem');
 
-const createProject = async (req, res) => {
+const create = async (req, res) => {
   console.log(req.body, ' req.body in create Project');
-  const project = new Project({ ...req.body });
+  const projectObject = req.body;
+  const wishListItem = projectObject.wishList[0].result[0];
+  const wishListTitle = wishListItem.title;
+  const wishListPrice = wishListItem.price.current_price;
+  const wishListDescription = wishListItem.description;
+  const wishListProductURL = wishListItem.url;
+  const wishListImageURL = wishListItem.main_image;
+  const wishListObject = {
+    title: wishListTitle,
+    price: wishListPrice,
+    description: wishListDescription,
+    productURL: wishListProductURL,
+    imageURL: wishListImageURL
+  };
+  console.log(wishListObject, '<-wishListObject');
+  const wishListDocument = new WishListItem(wishListObject);
+  wishListDocument.save();
+  console.log('wishlist success');
+  const existingWishList = projectObject.wishList;
+  projectObject.wishList = [wishListDocument._id];
+  console.log(wishListDocument, '<-wishListDocument');
+  const projectDocument = new Project(projectObject);
+  console.log(projectDocument, '<-project in create');
+
   try {
-    await project.save();
-    return res.status(200).json(project);
+    await projectDocument.save();
+    console.log('success');
+    return res.status(200).json(projectDocument);
   } catch (err) {
+    console.log(err, '<-err');
     res.status(500).json({
       err: err,
       message: 'Internal Server Error, Please try again'
@@ -73,5 +99,5 @@ const createProject = async (req, res) => {
 // });
 
 module.exports = {
-  createProject
+  create
 };

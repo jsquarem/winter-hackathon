@@ -9,13 +9,13 @@ import CircleAddButton from '../../components/CircleAddButton/CircleAddButton';
 // import { useForm } from 'react-hook-form';
 import WishListForm from '../../components/WishListForm/WishListForm';
 import WishListItem from '../../components/WishListItem/WishListItem';
-import * as projectService from '../utils/projectService/projectService';
+import projectService from '../../utils/projectService';
 
-export default function ProjectPage({ handleProject }) {
+export default function ProjectPage({ user, handleProject }) {
   const [addWishListState, setAddWishListState] = useState(false);
   const [wishList, setWishList] = useState([]);
   const [project, setProject] = useState({
-    wishList: '',
+    wishList: [],
     projectTitle: '',
     projectDescription: '',
     imageURL: '',
@@ -41,8 +41,18 @@ export default function ProjectPage({ handleProject }) {
     });
   }
 
-  const formSubmitHandler = (event) => {
+  const formSubmitHandler = async (event) => {
     event.preventDefault();
+    setProject({
+      ...project,
+      wishList: wishList
+    });
+    const projectObject = {
+      ...project,
+      wishList: wishList
+    };
+    const projectDocument = await projectService.create(projectObject);
+    console.log(projectDocument, '<-projectDocument');
   };
 
   const handleClick = (e) => {
@@ -154,7 +164,10 @@ export default function ProjectPage({ handleProject }) {
               </Form>
               <div className="row">
                 <div className="d-grid col-2 mx-auto end">
-                  <Button variant="success text-white" type="submit">
+                  <Button
+                    variant="success text-white"
+                    onClick={formSubmitHandler}
+                  >
                     {'Next'}
                   </Button>
                 </div>
